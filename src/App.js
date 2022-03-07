@@ -4,6 +4,16 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './pages/Login';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import RecipesProvider from './context/RecipesProvider';
+import Foods from './pages/Foods';
+import Drinks from './pages/Drinks';
+import RecipeDetails from './pages/RecipeDetails';
+import ProgressRecipe from './pages/ProgressRecipe';
+import Explore from './pages/Explore';
+import ExploreRecipe from './pages/ExploreRecipe';
+import Ingredients from './pages/Ingredients';
+import Profile from './pages/Profile';
+import DoneRecipes from './pages/DoneRecipes';
+import Favorites from './pages/Favorites';
 
 function App() {
   return (

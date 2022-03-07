@@ -1,8 +1,11 @@
 import React from 'react';
+import HeaderAll from '../components/HeaderAll';
 
 function Drinks() {
   return (
-    <div>Drinks</div>
+    <div>
+      <HeaderAll />
+    </div>
 
   );
 }

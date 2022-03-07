@@ -1,10 +1,15 @@
 import React from 'react';
-import HeaderAll from '../components/HeaderAll';
+import Header from '../components/Header';
+import profileIcon from '../images/profileIcon.svg';
 
 function Drinks() {
   return (
     <div>
-      <HeaderAll />
+      <Header title="Drinks">
+        <button type="button" src={ profileIcon }>
+          <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
+        </button>
+      </Header>
     </div>
 
   );

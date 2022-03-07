@@ -1,6 +1,13 @@
-import React, { } from 'react';
+import React, { useState } from 'react';
 
 function Login() {
+  const [inputEmail, setInputEmail] = useState();
+  const [inputPassword, setInputPassword] = useState();
+
+  const handleInputChange = ({ target }, setter) => {
+    setter(target.value);
+  };
+
   return (
     <form onSubmit={ (e) => e.preventDefault() }>
       <label htmlFor="email-input">
@@ -8,8 +15,9 @@ function Login() {
         <input
           data-testid="email-input"
           id="email-input"
-          // value={ }
+          value={ inputEmail }
           name="email"
+          onChange={ (e) => { handleInputChange(e, setInputEmail); } }
           type="email"
         />
       </label>
@@ -19,7 +27,8 @@ function Login() {
         <input
           data-testid="password-input"
           id="password-input"
-          // value={ }
+          value={ inputPassword }
+          onChange={ (e) => { handleInputChange(e, setInputPassword); } }
           name="password"
           type="password"
         />

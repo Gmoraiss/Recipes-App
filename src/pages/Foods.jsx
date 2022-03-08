@@ -1,4 +1,6 @@
+
 import React, { useContext } from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/index';
 
@@ -7,7 +9,9 @@ function Foods() {
 
   return (
     <div>
+     
       <Header isSearchButton title="Foods" />
+
       {recipes.length > 0 && recipes.map((value, index) => (
         <div key={ index } data-testid={ `${index}-recipe-card` }>
           <img
@@ -19,6 +23,9 @@ function Foods() {
           <h2 data-testid={ `${index}-card-name` }>{value.strMeal}</h2>
         </div>
       ))}
+
+     <Footer />
+
     </div>
   );
 }

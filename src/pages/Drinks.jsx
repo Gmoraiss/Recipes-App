@@ -1,12 +1,15 @@
+
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import MyContext from '../context/index';
+import Footer from '../components/Footer';
 
 function Drinks() {
   const { recipes } = useContext(MyContext);
 
   return (
     <div>
+
       <Header isSearchButton title="Drinks" />
 
       {recipes.length > 0 && recipes.map((value, index) => (
@@ -20,6 +23,10 @@ function Drinks() {
           <h2 data-testid={ `${index}-card-name` }>{value.strDrink}</h2>
         </div>
       ))}
+
+    <Header isSearchButton title="Drinks" />
+    <Footer />
+
     </div>
 
   );

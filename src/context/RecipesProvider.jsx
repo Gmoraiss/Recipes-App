@@ -4,7 +4,6 @@ import MyContext from '.';
 
 function RecipesProvider({ children }) {
   const store = {
-
   };
 
   return (

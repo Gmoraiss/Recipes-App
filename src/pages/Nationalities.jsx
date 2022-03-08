@@ -10,4 +10,5 @@ function Nationalities() {
     </div>
   );
 }
+
 export default Nationalities;

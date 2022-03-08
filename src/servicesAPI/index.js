@@ -1,21 +1,21 @@
 const DEFAULT_QTD = 12;
 const FIVE = 5;
 
-export const fetchByIngredient = async (ingrediente) => {
-  const INGREDIENTS_URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`;
+export const fetchByIngredient = async (ingredient, page) => {
+  const INGREDIENTS_URL = page === 'foods' ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}` : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const data = await (await fetch(INGREDIENTS_URL)).json();
   console.log(data);
   return data;
 };
-export const fetchByName = async (name) => {
-  const NAME_URL = `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`;
+export const fetchByName = async (name, page) => {
+  const NAME_URL = page === 'foods' ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
   const data = await (await fetch(NAME_URL)).json();
   console.log(data);
 
   return data;
 };
-export const fetchFirstLetter = async (firstLetter) => {
-  const LETTER_URL = `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`;
+export const fetchFirstLetter = async (firstLetter, page) => {
+  const LETTER_URL = page === 'foods' ? `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
   const data = await (await fetch(LETTER_URL)).json();
   console.log(data);
 

@@ -11,6 +11,14 @@ function Footer() {
     history.push('/drinks');
   };
 
+  const exploreRedirect = () => {
+    history.push('/explore');
+  };
+
+  const foodRedirect = () => {
+    history.push('/foods');
+  };
+
   return (
     <footer
       data-testid="footer"
@@ -29,7 +37,7 @@ function Footer() {
         data-testid="explore-bottom-btn"
         type="button"
         src={ exploreIcon }
-      // onClick={  }
+        onClick={ exploreRedirect }
       >
         Explorar
       </button>
@@ -38,7 +46,7 @@ function Footer() {
         data-testid="food-bottom-btn"
         type="button"
         src={ mealIcon }
-      // onClick={ }
+        onClick={ foodRedirect }
       >
         Comida
       </button>

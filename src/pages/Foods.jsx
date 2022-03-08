@@ -1,40 +1,12 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import SearchBar from '../components/SearchBar';
-import profileIcon from '../images/profileIcon.svg';
-import searchIcon from '../images/searchIcon.svg';
+import Header from '../components/Header';
 
-function Foods(props) {
-  const { history } = props;
+function Foods() {
   return (
     <div>
-      <div>
-        <button
-          type="button"
-          src={ profileIcon }
-          onClick={ () => history.push('/profile') }
-        >
-          <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
-        </button>
-        <h2 data-testid="page-title">Foods</h2>
-        <button
-          type="button"
-          src={ searchIcon }
-        >
-          <img
-            src={ searchIcon }
-            alt="searchIcon"
-            data-testid="search-top-btn"
-          />
-        </button>
-      </div>
-      <SearchBar />
+      <Header isSearchButton title="Foods" />
     </div>
   );
 }
-
-Foods.propTypes = {
-  history: PropTypes.string.isRequired,
-};
 
 export default Foods;

@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import '../App.css';
 import {
   fetchDrinkDetails,
   fetchDrinks,
@@ -106,7 +107,8 @@ function RecipeDetails() {
         style={ { position: 'fixed', bottom: '0' } }
         type="button"
         data-testid="start-recipe-btn"
-        onClick={ () => push(`/foods/${pathname.split('/')[2]}/in-progress`) }
+        onClick={ () => push(`/${pathname.split('/')[1]}/${
+          pathname.split('/')[2]}/in-progress`) }
       >
         Iniciar Receita
       </button>

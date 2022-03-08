@@ -4,7 +4,8 @@ export default function SearchBar() {
   return (
     <div>
       <div>
-        <input type="text" placeholder="Search Recipe" />
+
+        <input type="text" placeholder="Search Recipe" data-testid="search-input" />
         <label htmlFor="ingredient">
           ingredient
           <input type="radio" id="ingredient" />

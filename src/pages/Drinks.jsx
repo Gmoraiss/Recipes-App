@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import Header from '../components/Header';
 import MyContext from '../context/index';
@@ -24,8 +23,7 @@ function Drinks() {
         </div>
       ))}
 
-    <Header isSearchButton title="Drinks" />
-    <Footer />
+      <Footer />
 
     </div>
 

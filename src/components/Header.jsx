@@ -22,6 +22,8 @@ function Header({ title, isSearchButton }) {
           <button
             type="button"
             src={ searchIcon }
+            data-testid="search-input"
+            // onClick={}
           >
 
             <img

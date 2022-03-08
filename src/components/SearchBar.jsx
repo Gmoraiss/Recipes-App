@@ -5,12 +5,11 @@ import { fetchByIngredient, fetchByName, fetchFirstLetter } from '../servicesAPI
 export default function SearchBar() {
   const [filterRadio, setFilterRadio] = useState('inputName');
   const [searchInput, setSearchInput] = useState('');
-  const [recipes, setRecipes] = useState([]);
-  const [isSearch, setisSearch] = useState(false);
 
   const history = useHistory();
   const { location } = history;
   const page = location.pathname.split('/')[1];
+  const type = page === 'foods' ? 'meals' : 'drinks';
 
   const filters = {
     inputIngredient: fetchByIngredient,
@@ -18,24 +17,18 @@ export default function SearchBar() {
     inputLetter: fetchFirstLetter,
   };
 
-  const request2 = () => {
-    if (recipes.meals.length === 1) {
-      console.log('teste');
-      history.push(`/foods/${recipes.meals[0].idMeal}`);
-    }
-  };
-
   const handleClick = async (filter, text) => {
-    filters[filter](text, page);
-    setisSearch(!isSearch);
     if (searchInput.length > 1 && filterRadio === 'inputLetter') {
       global.alert('Your search must have only 1 (one) character');
+    } else {
+      filters[filter](text, page);
+      const data = await filters[filterRadio](searchInput, page);
+      const URL = page === 'foods' ? (`./foods/${data.meals[0].idMeal}`) : (
+        `./drinks/${data.drinks[0].idDrink}`);
+      if (data[type].length === 1) {
+        history.push(URL);
+      }
     }
-  };
-
-  const request3 = async () => {
-    setRecipes(await filters[filterRadio](searchInput, page));
-    request2();
   };
 
   return (
@@ -89,7 +82,6 @@ export default function SearchBar() {
           type="button"
           data-testid="exec-search-btn"
           onClick={ () => {
-            request3();
             handleClick(filterRadio, searchInput);
           } }
         >

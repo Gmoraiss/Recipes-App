@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/index';
@@ -64,15 +65,17 @@ function Foods() {
       </button>
 
       {foods.length > 0 && render.map((value, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <img
-            src={ value.strMealThumb }
-            style={ { width: '300px' } }
-            alt="strMealThumb"
-            data-testid={ `${index}-card-img` }
-          />
-          <h2 data-testid={ `${index}-card-name` }>{value.strMeal}</h2>
-        </div>
+        <Link key={ index } to={ `/foods/${value.idMeal}` }>
+          <div data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ value.strMealThumb }
+              style={ { width: '300px' } }
+              alt="strMealThumb"
+              data-testid={ `${index}-card-img` }
+            />
+            <h2 data-testid={ `${index}-card-name` }>{value.strMeal}</h2>
+          </div>
+        </Link>
       ))}
 
       <Footer />

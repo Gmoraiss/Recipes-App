@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import {
@@ -65,15 +66,17 @@ function Drinks() {
 
       </button>
       {drinks.length > 0 && render.map((value, index) => (
-        <div key={ index } data-testid={ `${index}-recipe-card` }>
-          <img
-            src={ value.strDrinkThumb }
-            style={ { width: '300px' } }
-            alt="strMealThumb"
-            data-testid={ `${index}-card-img` }
-          />
-          <h2 data-testid={ `${index}-card-name` }>{value.strDrink}</h2>
-        </div>
+        <Link key={ index } to={ `/drinks/${value.idDrink}` }>
+          <div key={ index } data-testid={ `${index}-recipe-card` }>
+            <img
+              src={ value.strDrinkThumb }
+              style={ { width: '300px' } }
+              alt="strMealThumb"
+              data-testid={ `${index}-card-img` }
+            />
+            <h2 data-testid={ `${index}-card-name` }>{value.strDrink}</h2>
+          </div>
+        </Link>
       ))}
 
       <Footer />

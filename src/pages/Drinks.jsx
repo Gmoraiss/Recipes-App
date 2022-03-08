@@ -22,7 +22,6 @@ function Drinks() {
           <h2 data-testid={ `${index}-card-name` }>{value.strDrink}</h2>
         </div>
       ))}
-
       <Footer />
 
     </div>

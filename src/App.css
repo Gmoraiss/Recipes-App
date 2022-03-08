@@ -37,6 +37,18 @@
   font-weight: 900;
 }
 
+
+.recomended-container {
+  display: flex;
+  overflow: auto;
+  width: 100%;
+}
+
+.recomended-card {
+  width: 50vw;
+
+}
+
 @keyframes shake {
 
   0% {

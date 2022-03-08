@@ -25,9 +25,11 @@ export default function SearchBar() {
     } else {
       filters[filter](text, page);
       const data = await filters[filterRadio](searchInput, page);
-      const URL = page === 'foods' ? (`./foods/${data.meals[0].idMeal}`) : (
-        `./drinks/${data.drinks[0].idDrink}`);
-      if (data[type].length === 1) {
+      if (data[type] === null) {
+        global.alert('Sorry, we haven\'t found any recipes for these filters.');
+      } else if (data[type].length === 1) {
+        const URL = page === 'foods' ? (`./foods/${data.meals[0].idMeal}`) : (
+          `./drinks/${data.drinks[0].idDrink}`);
         history.push(URL);
       } else {
         setRecipes(data[type].slice(0, TWELVE));
@@ -43,7 +45,9 @@ export default function SearchBar() {
           placeholder="Search Recipe"
           data-testid="search-input"
           value={ searchInput }
-          onChange={ ({ target }) => { setSearchInput(target.value); } }
+          onChange={ ({ target }) => {
+            setSearchInput(target.value);
+          } }
         />
 
         <label htmlFor="ingredient">

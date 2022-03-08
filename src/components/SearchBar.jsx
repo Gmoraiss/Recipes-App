@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { fetchByIngredient, fetchByName, fetchFirstLetter } from '../servicesAPI';
+import MyContext from '../context';
 
 export default function SearchBar() {
-  const [filterRadio, setFilterRadio] = useState('inputName');
-  const [searchInput, setSearchInput] = useState('');
-
+  const { filterRadio,
+    searchInput, setFilterRadio,
+    setSearchInput, setRecipes } = useContext(MyContext);
+  const TWELVE = 12;
   const history = useHistory();
   const { location } = history;
   const page = location.pathname.split('/')[1];
@@ -27,6 +29,8 @@ export default function SearchBar() {
         `./drinks/${data.drinks[0].idDrink}`);
       if (data[type].length === 1) {
         history.push(URL);
+      } else {
+        setRecipes(data[type].slice(0, TWELVE));
       }
     }
   };

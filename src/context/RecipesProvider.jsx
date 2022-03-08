@@ -6,7 +6,6 @@ function RecipesProvider({ children }) {
   const store = {
 
   };
-
   return (
     <MyContext.Provider value={ store }>
       {children}

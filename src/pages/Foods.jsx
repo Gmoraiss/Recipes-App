@@ -1,4 +1,3 @@
-
 import React, { useContext } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
@@ -9,7 +8,7 @@ function Foods() {
 
   return (
     <div>
-     
+
       <Header isSearchButton title="Foods" />
 
       {recipes.length > 0 && recipes.map((value, index) => (
@@ -24,7 +23,7 @@ function Foods() {
         </div>
       ))}
 
-     <Footer />
+      <Footer />
 
     </div>
   );

@@ -41,17 +41,21 @@ function RecipeInfo({ recipeInfo: {
 
       </h5>
       <h5>Ingredients:</h5>
-      {ingredients.map((ingredient, index) => (
-        <p
-          data-testid={ `${index}-ingredient-name-and-measure` }
-          key={ ingredient[0] }
-        >
-          {ingredient[1]}
-          {''}
-          {measures[index][1]}
+      {
+        ingredients.map((ingredient, index) => (
+          <div key={ index }>
+            <p
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ ingredient[0] }
+            >
+              {ingredient[1]}
+              {''}
+              {measures[index][1]}
+            </p>
+          </div>
+        ))
+      }
 
-        </p>
-      ))}
       <h5 data-testid="instructions">{details.strInstructions}</h5>
     </div>
   );

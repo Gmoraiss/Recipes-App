@@ -55,7 +55,7 @@ function RecipeDetails() {
   };
   return (
     <div style={ { overflow: 'hidden' } }>
-      <RecipeInfo recipeInfo={ recipeInfo } />
+      <RecipeInfo recipeInfo={ recipeInfo } page="details" />
       {!typeDrink && (
         <iframe
           data-testid="video"

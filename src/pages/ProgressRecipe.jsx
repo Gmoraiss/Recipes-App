@@ -15,8 +15,11 @@ function ProgressRecipe() {
     pathname,
     measures,
   };
+
   return (
-    <RecipeInfo recipeInfo={ recipeInfo } />
+    <div>
+      <RecipeInfo recipeInfo={ recipeInfo } page="in-progress" />
+    </div>
   );
 }
 

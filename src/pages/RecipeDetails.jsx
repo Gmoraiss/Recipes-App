@@ -37,7 +37,7 @@ function RecipeDetails() {
 
   useEffect(() => {
     const SIX = 6;
-    getDetails(pathname.split('/')[2] === '52977' ? '52771' : pathname.split('/')[2]);
+    getDetails(pathname.split('/')[2]);
     getRecomended(SIX);
   }, []);
 
@@ -53,71 +53,64 @@ function RecipeDetails() {
     pathname,
     measures,
   };
-  const page = 'xablau';
+  const page = pathname;
   return (
-    <>
-      {
-        page.includes('in-progress')
-          ? (
-            <RecipeInfo recipeInfo={ recipeInfo } />
-          )
-          : (
-            <div style={ { overflow: 'hidden' } }>
-      <RecipeInfo recipeInfo={ recipeInfo } />
-      {!typeDrink && (
-        <iframe
-          data-testid="video"
-          className="video"
-          frameBorder="0"
-          allowFullScreen="1"
-          allow="accelerometer;
-          autoplay; clipboard-write;
-          encrypted-media; gyroscope;
-          picture-in-picture"
-          title="YouTube video player"
-          width="640"
-          height="360"
-          src={ details.strYoutube }
-          id="widget2"
-        />
-      )}
-      <h3>Recomendado</h3>
-      <div className="recomended-container">
+    page.includes('in-progress')
+      ? (
+        <RecipeInfo recipeInfo={ recipeInfo } page="in-progress" />
+      ) : (
+        <div style={ { overflow: 'hidden' } }>
+          <RecipeInfo recipeInfo={ recipeInfo } page="details" />
+          {!typeDrink && (
+            <iframe
+              data-testid="video"
+              className="video"
+              frameBorder="0"
+              allowFullScreen="1"
+              allow="accelerometer;
+              autoplay; clipboard-write;
+              encrypted-media; gyroscope;
+              picture-in-picture"
+              title="YouTube video player"
+              width="640"
+              height="360"
+              src={ details.strYoutube }
+              id="widget2"
+            />
+          )}
+          <h3>Recomendado</h3>
+          <div className="recomended-container">
 
-      {recomended.map((recipe, index) => (
-        <div
-          key={ index }
-          className="recomended-card"
-          data-testid={ `${index}-recomendation-card` }
-        >
-          <img
-            src={ typeDrink ? recipe.strMealThumb : recipe.strDrinkThumb }
-            alt="recipe pic"
-          />
-          <h3
-            data-testid={ `${index}-recomendation-title` }
+            {recomended.map((recipe, index) => (
+              <div
+                key={ index }
+                className="recomended-card"
+                data-testid={ `${index}-recomendation-card` }
+              >
+                <img
+                  src={ typeDrink ? recipe.strMealThumb : recipe.strDrinkThumb }
+                  alt="recipe pic"
+                />
+                <h3
+                  data-testid={ `${index}-recomendation-title` }
+                >
+                  {typeDrink ? recipe.strMeal : recipe.strDrink}
+
+                </h3>
+              </div>
+            ))}
+          </div>
+          <button
+            style={ { position: 'fixed', bottom: '0' } }
+            type="button"
+            data-testid="start-recipe-btn"
+            onClick={ () => push(`/${pathname.split('/')[1]}/${
+              pathname.split('/')[2]}/in-progress`) }
           >
-            {typeDrink ? recipe.strMeal : recipe.strDrink}
-
-          </h3>
-        </div>
-      ))}
-    </div>
-    <button
-      style={ { position: 'fixed', bottom: '0' } }
-      type="button"
-      data-testid="start-recipe-btn"
-      onClick={ () => push(`/${pathname.split('/')[1]}/${
-        pathname.split('/')[2]}/in-progress`) }
-    >
-      Iniciar Receita
-    </button>
-  </div>
-          )
-      }
-    </>
-    
+            Iniciar Receita
+          </button>
+        </div>)
   );
 }
-//
+
 export default RecipeDetails;

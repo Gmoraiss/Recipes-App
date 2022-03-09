@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../App.css';
@@ -55,39 +54,6 @@ function RecipeDetails() {
   };
   const page = pathname;
   return (
-<<<<<<< HEAD
-    <div style={ { overflow: 'hidden' } }>
-      <RecipeInfo recipeInfo={ recipeInfo } page="details" />
-      {!typeDrink && (
-        <iframe
-          data-testid="video"
-          className="video"
-          frameBorder="0"
-          allowFullScreen="1"
-          allow="accelerometer;
-          autoplay; clipboard-write;
-          encrypted-media; gyroscope;
-          picture-in-picture"
-          title="YouTube video player"
-          width="640"
-          height="360"
-          src={ details.strYoutube }
-          id="widget2"
-        />
-      )}
-      <h3>Recomendado</h3>
-      <div className="recomended-container">
-
-        {recomended.map((recipe, index) => (
-          <div
-            key={ index }
-            className="recomended-card"
-            data-testid={ `${index}-recomendation-card` }
-          >
-            <img
-              src={ typeDrink ? recipe.strMealThumb : recipe.strDrinkThumb }
-              alt="recipe pic"
-=======
     page.includes('in-progress')
       ? (
         <RecipeInfo recipeInfo={ recipeInfo } page="in-progress" />
@@ -109,7 +75,6 @@ function RecipeDetails() {
               height="360"
               src={ details.strYoutube }
               id="widget2"
->>>>>>> 6bc45f437b2a594b88eec5871a535deb19637580
             />
           )}
           <h3>Recomendado</h3>

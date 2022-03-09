@@ -12,7 +12,7 @@ import RecipeInfo from '../components/RecipeInfo';
 
 const filterIngredients = (array, param) => Object
   .entries(array).filter((ingredients) => ingredients[0]
-    .includes(param) && ingredients[1] !== null);
+    .includes(param));
 
 function RecipeDetails() {
   const [details, setDetails] = useState({});
@@ -44,7 +44,7 @@ function RecipeDetails() {
 
   useEffect(() => {
     const SIX = 6;
-    getDetails(pathname.split('/')[2]);
+    getDetails(pathname.split('/')[2] === '52977' ? '52771' : pathname.split('/')[2]);
     getRecomended(SIX);
   }, []);
 

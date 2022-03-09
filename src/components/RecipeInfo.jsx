@@ -57,19 +57,20 @@ function RecipeInfo({ recipeInfo: {
         )))
         : (
           <div>
-            {ingredients.map((ingredient, index) => (
-              <label
-                htmlFor="input"
-                data-testid={ `${index}-ingredient-name-and-measure` }
-                key={ ingredient[0] }
-              >
-                <input id="input" data-testid="ingredient-step" type="checkbox" />
-                {ingredient[1]}
-                {''}
-                {measures[index][1]}
+            {ingredients.filter((ingr) => ingr[1] !== null && ingr[1] !== '')
+              .map((ingredient, index) => (
+                <label
+                  htmlFor="input"
+                  data-testid="ingredient-step"
+                  key={ ingredient[0] }
+                >
+                  <input id="input" type="checkbox" />
+                  {ingredient[1]}
+                  {''}
+                  {measures[index][1]}
 
-              </label>
-            ))}
+                </label>
+              ))}
             <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
           </div>
         )}

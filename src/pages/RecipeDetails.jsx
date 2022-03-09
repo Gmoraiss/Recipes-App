@@ -68,9 +68,9 @@ function RecipeDetails() {
               frameBorder="0"
               allowFullScreen="1"
               allow="accelerometer;
-      autoplay; clipboard-write;
-      encrypted-media; gyroscope;
-      picture-in-picture"
+              autoplay; clipboard-write;
+              encrypted-media; gyroscope;
+              picture-in-picture"
               title="YouTube video player"
               width="640"
               height="360"

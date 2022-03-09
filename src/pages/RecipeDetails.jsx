@@ -1,30 +1,23 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../App.css';
-import {
-  fetchDrinkDetails,
-  fetchDrinks,
-  fetchMeal,
-  fetchMealDetails,
+import { fetchDrinkDetails, fetchDrinks, fetchMeal, fetchMealDetails, filterIngredients,
 } from '../servicesAPI';
 import RecipeInfo from '../components/RecipeInfo';
-
-const filterIngredients = (array, param) => Object
-  .entries(array).filter((ingredients) => ingredients[0]
-    .includes(param));
+import MyContext from '../context';
 
 function RecipeDetails() {
-  const [details, setDetails] = useState({});
-  const [ingredients, setIngredients] = useState([]);
-  const [measures, setMeasures] = useState([]);
-  const [recomended, setRecomended] = useState([]);
+  const { details,
+    setDetails,
+    ingredients,
+    setIngredients,
+    measures,
+    setMeasures,
+    recomended,
+    setRecomended } = useContext(MyContext);
 
-  const {
-    location: { pathname },
-    push,
-  } = useHistory();
-
+  const { location: { pathname }, push } = useHistory();
   const typeDrink = pathname.split('/')[1] === 'drinks';
 
   const getDetails = async (id) => {
@@ -63,7 +56,6 @@ function RecipeDetails() {
   return (
     <div style={ { overflow: 'hidden' } }>
       <RecipeInfo recipeInfo={ recipeInfo } />
-      {console.log(details)}
       {!typeDrink && (
         <iframe
           data-testid="video"

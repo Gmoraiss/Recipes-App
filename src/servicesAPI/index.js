@@ -70,7 +70,7 @@ export const fetchSelectCategoryMeals = async (category) => {
 
 export const filterIngredients = (array, param) => Object
   .entries(array).filter((ingredients) => ingredients[0]
-    .includes(param) && ingredients[1] !== null && ingredients[1] !== '');
+    .includes(param));
 
 export const filters = {
   inputIngredient: fetchByIngredient,

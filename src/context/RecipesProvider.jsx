@@ -6,6 +6,10 @@ function RecipesProvider({ children }) {
   const [searchInput, setSearchInput] = useState('');
   const [filterRadio, setFilterRadio] = useState('inputName');
   const [recipes, setRecipes] = useState([]);
+  const [details, setDetails] = useState({});
+  const [ingredients, setIngredients] = useState([]);
+  const [measures, setMeasures] = useState([]);
+  const [recomended, setRecomended] = useState([]);
 
   const store = {
     searchInput,
@@ -14,6 +18,15 @@ function RecipesProvider({ children }) {
     setFilterRadio,
     recipes,
     setRecipes,
+    details,
+    setDetails,
+    ingredients,
+    setIngredients,
+    measures,
+    setMeasures,
+    recomended,
+    setRecomended,
+
   };
   return (
     <MyContext.Provider value={ store }>

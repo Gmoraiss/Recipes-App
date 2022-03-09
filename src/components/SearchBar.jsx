@@ -1,33 +1,26 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import { fetchByIngredient, fetchByName, fetchFirstLetter } from '../servicesAPI';
+import { filters } from '../servicesAPI';
 import MyContext from '../context';
 
 export default function SearchBar() {
-  const { filterRadio,
-    searchInput, setFilterRadio,
-    setSearchInput, setRecipes } = useContext(MyContext);
+  const { filterRadio, searchInput, setFilterRadio, setSearchInput, setRecipes,
+  } = useContext(MyContext);
   const TWELVE = 12;
   const history = useHistory();
   const { location } = history;
   const page = location.pathname.split('/')[1];
   const type = page === 'foods' ? 'meals' : 'drinks';
 
-  const filters = {
-    inputIngredient: fetchByIngredient,
-    inputName: fetchByName,
-    inputLetter: fetchFirstLetter,
-  };
-
-  const handleClick = async (filter, text) => {
+  const handleClick = async () => {
     if (searchInput.length > 1 && filterRadio === 'inputLetter') {
       global.alert('Your search must have only 1 (one) character');
     } else {
-      filters[filter](text, page);
       const data = await filters[filterRadio](searchInput, page);
       if (data[type] === null) {
         global.alert('Sorry, we haven\'t found any recipes for these filters.');
-      } else if (data[type].length === 1) {
+      } else
+      if (data[type].length === 1) {
         const URL = page === 'foods' ? (`./foods/${data.meals[0].idMeal}`) : (
           `./drinks/${data.drinks[0].idDrink}`);
         history.push(URL);
@@ -58,7 +51,7 @@ export default function SearchBar() {
             id="ingredient"
             data-testid="ingredient-search-radio"
             value="inputIngredient"
-            onChange={ ({ target }) => { setFilterRadio(target.value); } }
+            onChange={ () => { setFilterRadio('inputIngredient'); } }
           />
         </label>
 
@@ -70,7 +63,7 @@ export default function SearchBar() {
             id="name"
             data-testid="name-search-radio"
             value="inputName"
-            onChange={ ({ target }) => { setFilterRadio(target.value); } }
+            onChange={ () => { setFilterRadio('inputName'); } }
           />
         </label>
 
@@ -82,16 +75,14 @@ export default function SearchBar() {
             id="firstLetter"
             data-testid="first-letter-search-radio"
             value="inputLetter"
-            onChange={ ({ target }) => { setFilterRadio(target.value); } }
+            onChange={ () => { setFilterRadio('inputLetter'); } }
           />
         </label>
 
         <button
           type="button"
           data-testid="exec-search-btn"
-          onClick={ () => {
-            handleClick(filterRadio, searchInput);
-          } }
+          onClick={ handleClick }
         >
           Search
 

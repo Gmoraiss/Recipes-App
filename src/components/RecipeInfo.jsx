@@ -46,7 +46,9 @@ function RecipeInfo({ recipeInfo: {
           data-testid={ `${index}-ingredient-name-and-measure` }
           key={ ingredient[0] }
         >
-          {`${ingredient[1]} ${measures[index][1]}` }
+          {ingredient[1]}
+          {''}
+          {measures[index][1]}
 
         </p>
       ))}

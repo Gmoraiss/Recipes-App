@@ -67,3 +67,13 @@ export const fetchSelectCategoryMeals = async (category) => {
   const newData = meals.slice(0, DEFAULT_QTD);
   return newData;
 };
+
+export const filterIngredients = (array, param) => Object
+  .entries(array).filter((ingredients) => ingredients[0]
+    .includes(param));
+
+export const filters = {
+  inputIngredient: fetchByIngredient,
+  inputName: fetchByName,
+  inputLetter: fetchFirstLetter,
+};

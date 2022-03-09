@@ -53,8 +53,16 @@ function RecipeDetails() {
     pathname,
     measures,
   };
+  const page = 'xablau';
   return (
-    <div style={ { overflow: 'hidden' } }>
+    <>
+      {
+        page.includes('in-progress')
+          ? (
+            <RecipeInfo recipeInfo={ recipeInfo } />
+          )
+          : (
+            <div style={ { overflow: 'hidden' } }>
       <RecipeInfo recipeInfo={ recipeInfo } />
       {!typeDrink && (
         <iframe
@@ -76,35 +84,39 @@ function RecipeDetails() {
       <h3>Recomendado</h3>
       <div className="recomended-container">
 
-        {recomended.map((recipe, index) => (
-          <div
-            key={ index }
-            className="recomended-card"
-            data-testid={ `${index}-recomendation-card` }
+      {recomended.map((recipe, index) => (
+        <div
+          key={ index }
+          className="recomended-card"
+          data-testid={ `${index}-recomendation-card` }
+        >
+          <img
+            src={ typeDrink ? recipe.strMealThumb : recipe.strDrinkThumb }
+            alt="recipe pic"
+          />
+          <h3
+            data-testid={ `${index}-recomendation-title` }
           >
-            <img
-              src={ typeDrink ? recipe.strMealThumb : recipe.strDrinkThumb }
-              alt="recipe pic"
-            />
-            <h3
-              data-testid={ `${index}-recomendation-title` }
-            >
-              {typeDrink ? recipe.strMeal : recipe.strDrink}
+            {typeDrink ? recipe.strMeal : recipe.strDrink}
 
-            </h3>
-          </div>
-        ))}
-      </div>
-      <button
-        style={ { position: 'fixed', bottom: '0' } }
-        type="button"
-        data-testid="start-recipe-btn"
-        onClick={ () => push(`/${pathname.split('/')[1]}/${
-          pathname.split('/')[2]}/in-progress`) }
-      >
-        Iniciar Receita
-      </button>
+          </h3>
+        </div>
+      ))}
     </div>
+    <button
+      style={ { position: 'fixed', bottom: '0' } }
+      type="button"
+      data-testid="start-recipe-btn"
+      onClick={ () => push(`/${pathname.split('/')[1]}/${
+        pathname.split('/')[2]}/in-progress`) }
+    >
+      Iniciar Receita
+    </button>
+  </div>
+          )
+      }
+    </>
+    
   );
 }
 //

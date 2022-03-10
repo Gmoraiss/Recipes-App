@@ -21,7 +21,7 @@ function RecipeDetails() {
 
   const { location: { pathname }, push } = useHistory();
   const typeDrink = pathname.split('/')[1] === 'drinks';
-
+  const type = typeDrink ? 'cocktails' : 'meals';
   const getDetails = async (id) => {
     const data = typeDrink
       ? await fetchDrinkDetails(id)
@@ -42,22 +42,16 @@ function RecipeDetails() {
       pathname.split('/')[2]}/in-progress`);
   };
   const id = pathname.split('/')[2];
-  const addRecipes = (type) => {
+
+  const addRecipe = () => {
     const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
     const storage = localStorage.getItem('inProgressRecipes') !== null ? local : [];
     localStorage.setItem('inProgressRecipes', JSON
-      .stringify(
-        { ...local,
-          [type]: { ...storage[type], [id]: [] } },
-      ));
+      .stringify({ ...local, [type]: { ...storage[type], [id]: [] } }));
   };
 
   const handleClick = () => {
-    if (!typeDrink) {
-      addRecipes('meals');
-    } else {
-      addRecipes('cocktails');
-    }
+    addRecipe();
     redirectProgress();
   };
 
@@ -108,7 +102,7 @@ function RecipeDetails() {
             style={ { position: 'fixed', bottom: '0' } }
             type="button"
             data-testid="start-recipe-btn"
-            onClick={ () => handleClick() }
+            onClick={ handleClick }
           >
             Iniciar Receita
           </button>

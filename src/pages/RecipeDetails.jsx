@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../App.css';
@@ -5,6 +6,8 @@ import { fetchDrinkDetails, fetchDrinks, fetchMeal, fetchMealDetails, filterIngr
 } from '../servicesAPI';
 import RecipeInfo from '../components/RecipeInfo';
 import MyContext from '../context';
+import VideoCard from '../components/VideoCard';
+import Recomended from '../components/Recomended';
 
 function RecipeDetails() {
   const { details,
@@ -34,6 +37,30 @@ function RecipeDetails() {
     setRecomended(data);
   };
 
+  const redirectProgress = () => {
+    push(`/${pathname.split('/')[1]}/${
+      pathname.split('/')[2]}/in-progress`);
+  };
+  const id = pathname.split('/')[2];
+  const addRecipes = (type) => {
+    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
+    const storage = localStorage.getItem('inProgressRecipes') !== null ? local : [];
+    localStorage.setItem('inProgressRecipes', JSON
+      .stringify(
+        { ...local,
+          [type]: { ...storage[type], [id]: [] } },
+      ));
+  };
+
+  const handleClick = () => {
+    if (!typeDrink) {
+      addRecipes('meals');
+    } else {
+      addRecipes('cocktails');
+    }
+    redirectProgress();
+  };
+
   useEffect(() => {
     const SIX = 6;
     getDetails(pathname.split('/')[2]);
@@ -51,6 +78,7 @@ function RecipeDetails() {
     ingredients,
     pathname,
     measures,
+    id,
   };
   const page = pathname;
   return (
@@ -61,50 +89,26 @@ function RecipeDetails() {
         <div style={ { overflow: 'hidden' } }>
           <RecipeInfo recipeInfo={ recipeInfo } page="details" />
           {!typeDrink && (
-            <iframe
-              data-testid="video"
-              className="video"
-              frameBorder="0"
-              allowFullScreen="1"
-              allow="accelerometer;
-              autoplay; clipboard-write;
-              encrypted-media; gyroscope;
-              picture-in-picture"
-              title="YouTube video player"
-              width="640"
-              height="360"
-              src={ details.strYoutube }
-              id="widget2"
-            />
+            <VideoCard details={ details } />
           )}
           <h3>Recomendado</h3>
           <div className="recomended-container">
 
             {recomended.map((recipe, index) => (
-              <div
+              <Recomended
                 key={ index }
-                className="recomended-card"
-                data-testid={ `${index}-recomendation-card` }
-              >
-                <img
-                  src={ typeDrink ? recipe.strMealThumb : recipe.strDrinkThumb }
-                  alt="recipe pic"
-                />
-                <h3
-                  data-testid={ `${index}-recomendation-title` }
-                >
-                  {typeDrink ? recipe.strMeal : recipe.strDrink}
+                recipe={ recipe }
+                index={ index }
+                typeDrink={ typeDrink }
+              />
 
-                </h3>
-              </div>
             ))}
           </div>
           <button
             style={ { position: 'fixed', bottom: '0' } }
             type="button"
             data-testid="start-recipe-btn"
-            onClick={ () => push(`/${pathname.split('/')[1]}/${
-              pathname.split('/')[2]}/in-progress`) }
+            onClick={ () => handleClick() }
           >
             Iniciar Receita
           </button>

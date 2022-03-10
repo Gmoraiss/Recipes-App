@@ -2,11 +2,11 @@ import React from 'react';
 import { BsShare } from 'react-icons/bs';
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import ProgressInpunt from './ProgressInpunt';
 
 function RecipeInfo({ recipeInfo: {
   typeDrink, details, ingredients, pathname, measures }, page }) {
   return (
-
     <div>
       <img
         src={
@@ -59,20 +59,18 @@ function RecipeInfo({ recipeInfo: {
           <div>
             {ingredients.filter((ingr) => ingr[1] !== null && ingr[1] !== '')
               .map((ingredient, index) => (
-                <label
-                  htmlFor="input"
-                  data-testid="ingredient-step"
-                  key={ ingredient[0] }
-                >
-                  <input id="input" type="checkbox" />
-                  {ingredient[1]}
-                  {''}
-                  {measures[index][1]}
-
-                </label>
+                <ProgressInpunt
+                  key={ index }
+                  ingredient={ ingredient }
+                  measures={ measures }
+                  index={ index }
+                  id={ pathname.split('/')[2] }
+                  pathname={ pathname.split('/')[1] }
+                />
               ))}
             <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
           </div>
+
         )}
 
       <h5 data-testid="instructions">{details.strInstructions}</h5>

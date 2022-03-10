@@ -2,11 +2,19 @@ import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { fetchRandonDrink, fetchRandonFood } from '../servicesAPI/index';
 
 function ExploreRecipe() {
   const history = useHistory();
   const pageTitle = history.location.pathname
     .split('/')[2];
+  const surpriseFood = async () => {
+    history.push(`/foods/${await fetchRandonFood()}`);
+  };
+  const surpriseDrink = async () => {
+    history.push(`/drinks/${await fetchRandonDrink()}`);
+  };
+
   return (
     <div>
 
@@ -28,7 +36,7 @@ function ExploreRecipe() {
               data-testid="explore-surprise"
               type="button"
               className="explore-surprise-btn"
-            // onClick={ }
+              onClick={ surpriseDrink }
             >
               Surprise me!
             </button>
@@ -58,6 +66,7 @@ function ExploreRecipe() {
                 data-testid="explore-surprise"
                 type="button"
                 className="explore-surprise-btn"
+                onClick={ surpriseFood }
               >
                 Surprise me!
               </button>

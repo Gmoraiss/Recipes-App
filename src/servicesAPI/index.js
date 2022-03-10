@@ -68,6 +68,20 @@ export const fetchSelectCategoryMeals = async (category) => {
   return newData;
 };
 
+export const fetchRandonFood = async () => {
+  const RANDON_MEAL_URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
+  const { meals } = await (await fetch(RANDON_MEAL_URL)).json();
+  console.log(meals[0].idMeal);
+  return meals[0].idMeal;
+};
+
+export const fetchRandonDrink = async () => {
+  const RANDON_DRINK_URL = 'https://www.thecocktaildb.com/api/json/v1/1/random.php';
+  const { drinks } = await (await fetch(RANDON_DRINK_URL)).json();
+  console.log(drinks);
+  return drinks[0].idDrink;
+};
+
 export const filterIngredients = (array, param) => Object
   .entries(array).filter((ingredients) => ingredients[0]
     .includes(param));

@@ -10,6 +10,7 @@ function RecipesProvider({ children }) {
   const [ingredients, setIngredients] = useState([]);
   const [measures, setMeasures] = useState([]);
   const [recomended, setRecomended] = useState([]);
+  const [foods, setFoods] = useState([]);
 
   const store = {
     searchInput,
@@ -26,8 +27,10 @@ function RecipesProvider({ children }) {
     setMeasures,
     recomended,
     setRecomended,
-
+    foods,
+    setFoods,
   };
+
   return (
     <MyContext.Provider value={ store }>
       {children}

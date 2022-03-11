@@ -122,3 +122,9 @@ export const FecthAllNationalities = async () => {
   const { meals } = await (await fetch(URL)).json();
   return meals;
 };
+
+export const FilterByNationalities = async (country) => {
+  const URL = `https://www.themealdb.com/api/json/v1/1/filter.php?a=${country}`;
+  const { meals } = await (await fetch(URL)).json();
+  return meals;
+};

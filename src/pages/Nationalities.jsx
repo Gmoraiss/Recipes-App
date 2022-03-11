@@ -1,9 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 // import MyContext from '../context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { FecthAllNationalities } from '../servicesAPI';
+import { FecthAllNationalities, FilterByNationalities } from '../servicesAPI';
 
 function Nationalities() {
   const location = useLocation();
@@ -11,16 +12,24 @@ function Nationalities() {
   const type = page === 'foods' && 'meals';
   // const { setRecipes } = useContext(MyContext);
   const [allNationalities, setAllNationalities] = useState([]);
+  const [selectedNationality, setSelectedNationality] = useState('American');
+  const [cardsNationalities, setcardsNationalities] = useState([]);
 
   const getAllNationalities = async () => {
     const data = await FecthAllNationalities(page, type);
     setAllNationalities(data);
   };
 
+  const getCardsNationalities = async () => {
+    const data = await FilterByNationalities(selectedNationality);
+    setcardsNationalities(data);
+  };
+
   useEffect(() => {
     getAllNationalities();
-    console.log(allNationalities);
-  }, []);
+    getCardsNationalities();
+    console.log(cardsNationalities);
+  }, [selectedNationality]);
 
   // const handleClick = async (nationalities) => {
   //   const TWELVE = 12;
@@ -33,7 +42,11 @@ function Nationalities() {
       <Header title="Explore Nationalities" isSearchButton />
 
       <div>
-        <select data-testid="explore-by-nationality-dropdown">
+        <select
+          data-testid="explore-by-nationality-dropdown"
+          value={ selectedNationality }
+          onChange={ (e) => { setSelectedNationality(e.target.value); } }
+        >
           {allNationalities.map((nationalities, index) => (
             <option
               key={ index }
@@ -41,17 +54,15 @@ function Nationalities() {
             >
               {nationalities.strArea}
             </option>
-            // <Link
-            //   to={ `/${page}` }
-            //   key={ index }
-            //   onClick={ () => {
-            //     handleClick(nationalities.strArea);
-            //   } }
-            // >
-            //   <div data-testid={ `${index}-ingredient-card` } />
-            // </Link>
           ))}
         </select>
+        { cardsNationalities !== null
+          ? (cardsNationalities.map((card) => (
+            <div key={ card.idMeal }>
+              <h1>{card.strMeal}</h1>
+              <img style={ { width: '300px' } } src={ card.strMealThumb } alt="card" />
+            </div>
+          ))) : ''}
       </div>
 
       <Footer />

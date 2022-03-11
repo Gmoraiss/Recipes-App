@@ -10,8 +10,9 @@ function Profile() {
     history.push('/');
   };
 
-  const getEmail = JSON.parse(localStorage.getItem('user'))
-    .email || 'você não está logado';
+  const getEmail = JSON.parse(localStorage.getItem('user')) !== null
+    ? JSON.parse(localStorage.getItem('user')).email
+    : 'você não está logado';
 
   return (
     <div>

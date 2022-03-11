@@ -44,11 +44,27 @@ function RecipeDetails() {
   const id = pathname.split('/')[2];
 
   const addRecipe = () => {
-    const local = JSON.parse(localStorage.getItem('inProgressRecipes'));
-    const storage = localStorage.getItem('inProgressRecipes') !== null ? local : [];
-    localStorage.setItem('inProgressRecipes', JSON
-      .stringify({ ...local, [type]: { ...storage[type], [id]: [] } }));
+    const storage = JSON.parse(localStorage
+      .getItem('inProgressRecipes')) || { meals: [], cocktails: [] };
+    console.log(storage);
+    if (!storage[type][id]) {
+      localStorage.setItem('inProgressRecipes', JSON
+        .stringify({ ...storage, [type]: { ...storage[type], [id]: [] } }));
+    }
   };
+
+  const validProgress = () => {
+    const storage = JSON.parse(localStorage
+      .getItem('inProgressRecipes')) || { meals: [], cocktails: [] };
+    return storage[type][id];
+  };
+
+  const validDoneRecipe = () => {
+    const storage = JSON.parse(localStorage
+      .getItem('doneRecipes')) || [];
+    return storage[id];
+  };
+  validDoneRecipe();
 
   const handleClick = () => {
     addRecipe();
@@ -98,14 +114,30 @@ function RecipeDetails() {
 
             ))}
           </div>
-          <button
-            style={ { position: 'fixed', bottom: '0' } }
-            type="button"
-            data-testid="start-recipe-btn"
-            onClick={ handleClick }
-          >
-            Iniciar Receita
-          </button>
+          {!validDoneRecipe()
+          && (
+            <div>
+              {!validProgress()
+                ? (
+                  <button
+                    style={ { position: 'fixed', bottom: '0' } }
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    onClick={ handleClick }
+                  >
+                    Start Recipe
+                  </button>)
+
+                : (
+                  <button
+                    style={ { position: 'fixed', bottom: '0' } }
+                    type="button"
+                    data-testid="start-recipe-btn"
+                    onClick={ handleClick }
+                  >
+                    Continue Recipe
+                  </button>)}
+            </div>)}
         </div>)
   );
 }

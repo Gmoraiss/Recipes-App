@@ -1,11 +1,48 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect, useState } from 'react';
 import { BsShare } from 'react-icons/bs';
 import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import copy from 'clipboard-copy';
 import ProgressInpunt from './ProgressInpunt';
 
 function RecipeInfo({ recipeInfo: {
   typeDrink, details, ingredients, pathname, measures }, page }) {
+  const [isEnableBtn, setIsEnableBtn] = useState();
+  const id = pathname.split('/')[2];
+  const enableBtn = () => {
+    const checkbox = document.querySelectorAll('input');
+    const myArray = [...checkbox];
+    setIsEnableBtn(myArray.every((input) => input.checked));
+  };
+
+  useEffect(() => {
+    enableBtn();
+    console.log(details);
+    console.log(new Date().toISOString());
+  }, []);
+
+  const doneRecipe = {
+    id: details[typeDrink ? 'idDrink' : 'idMeal'],
+    type: typeDrink ? 'drink' : 'food',
+    nationality: details.strArea || '',
+    category: details.strCategory || '',
+    alcoholicOrNot: details.strAlcoholic || '',
+    name: details.strDrink || details.strMeal,
+    image: details.strDrinkThumb || details.strMealThumb,
+    doneDate: new Date().toISOString(),
+    tags: details.strTags || '',
+
+  };
+
+  const handleClick = () => {
+    const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
+    console.log(storage);
+    localStorage.setItem('doneRecipes', JSON
+      .stringify({ ...storage, [id]: doneRecipe }));
+    setIsEnableBtn(!isEnableBtn);
+  };
+
   return (
     <div>
       <img
@@ -26,6 +63,9 @@ function RecipeInfo({ recipeInfo: {
       <button
         data-testid="share-btn"
         type="button"
+        onClick={ () => {
+          copy(pathname);
+        } }
       >
         <BsShare />
       </button>
@@ -60,6 +100,7 @@ function RecipeInfo({ recipeInfo: {
             {ingredients.filter((ingr) => ingr[1] !== null && ingr[1] !== '')
               .map((ingredient, index) => (
                 <ProgressInpunt
+                  enableBtn={ enableBtn }
                   key={ index }
                   ingredient={ ingredient }
                   measures={ measures }
@@ -68,7 +109,15 @@ function RecipeInfo({ recipeInfo: {
                   pathname={ pathname.split('/')[1] }
                 />
               ))}
-            <button data-testid="finish-recipe-btn" type="button">Finish Recipe</button>
+            <button
+              data-testid="finish-recipe-btn"
+              type="button"
+              disabled={ !isEnableBtn }
+              onClick={ handleClick }
+            >
+              Finish Recipe
+
+            </button>
           </div>
 
         )}

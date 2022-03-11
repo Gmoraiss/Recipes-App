@@ -3,11 +3,14 @@ import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import MyContext from '../context';
 
-function ProgressInpunt({ ingredient, index, id, pathname }) {
+function ProgressInpunt({ ingredient, index, id, pathname, enableBtn }) {
   const { measures } = useContext(MyContext);
-  const [isChecked, setIsChecked] = useState(false);
   const type = pathname === 'foods' ? 'meals' : 'cocktails';
   const getCurrentStorage = () => JSON.parse(localStorage.getItem('inProgressRecipes'));
+  const transtionStorage = getCurrentStorage();
+  const validCheck = transtionStorage !== null
+  && transtionStorage[type][id].includes(ingredient[1]);
+  const [isChecked, setIsChecked] = useState(validCheck);
 
   const setStorage = () => {
     if (getCurrentStorage() === null) {
@@ -35,19 +38,18 @@ function ProgressInpunt({ ingredient, index, id, pathname }) {
            .filter((ingred) => ingred !== ingredient[1])] } },
       ));
   };
-  const handleClick = () => {
+  const handleChange = () => {
     setIsChecked(!isChecked);
     if (!isChecked) {
       addIngredient(getCurrentStorage());
     } else {
       removeIngredient(getCurrentStorage());
     }
+    enableBtn();
   };
 
   const validChecks = () => {
-    const transtionStorage = getCurrentStorage();
-    setIsChecked(transtionStorage !== null
-       && transtionStorage[type][id].includes(ingredient[1]));
+    setIsChecked();
   };
 
   useEffect(() => {
@@ -59,14 +61,14 @@ function ProgressInpunt({ ingredient, index, id, pathname }) {
     <div>
       <label
         htmlFor={ index }
-        data-testid={ `${index}ingredient-step` }
+        data-testid={ `${index}-ingredient-step` }
 
       >
         <input
           id={ index }
           type="checkbox"
           checked={ isChecked }
-          onClick={ handleClick }
+          onChange={ handleChange }
 
         />
         {ingredient[1]}
@@ -85,6 +87,7 @@ ProgressInpunt.propTypes = {
   ingredient: PropTypes.arrayOf(PropTypes.any).isRequired,
   index: PropTypes.number.isRequired,
   pathname: PropTypes.string.isRequired,
+  enableBtn: PropTypes.func.isRequired,
 
 };
 

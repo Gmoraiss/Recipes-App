@@ -34,11 +34,11 @@ function Favorites() {
     setIsShowCopied(true);
   };
 
-  const removeFavoriteStorage = ({ target }) => {
+  const removeFavoriteStorage = (recipeId) => {
     const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
     localStorage.setItem('favoriteRecipes', JSON
       .stringify([...storage.filter((item) => item.id
-        !== target.id)]));
+        !== recipeId)]));
     attFavorites();
   };
 
@@ -110,13 +110,13 @@ function Favorites() {
                 </button>
                 <button
                   type="button"
-                  src={ blackHeartIcon }
-                  alt="favorite-btn"
-                  data-testid={ `${index}-horizontal-favorite-btn` }
-                  id={ recipe.id }
-                  onClick={ removeFavoriteStorage }
+                  onClick={ () => removeFavoriteStorage(recipe.id) }
                 >
-                  {/* <img /> */}
+                  <img
+                    alt="favorite-btn"
+                    src={ blackHeartIcon }
+                    data-testid={ `${index}-horizontal-favorite-btn` }
+                  />
                 </button>
                 {
                   isShowCopied && <p>Link copied!</p>

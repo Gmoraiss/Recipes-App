@@ -6,8 +6,7 @@ import MyContext from '../context/index';
 import { fetchCategoryMeal, fetchMeal, fetchSelectCategoryMeals } from '../servicesAPI';
 
 function Foods() {
-  const { recipes } = useContext(MyContext);
-  const [foods, setFoods] = useState([]);
+  const { recipes, foods, setFoods } = useContext(MyContext);
   const [isFilter, setIsFilter] = useState(true);
   const [categorySelect, setCategorySelect] = useState('');
   const [categoryFoods, setCategoryFoods] = useState([]);

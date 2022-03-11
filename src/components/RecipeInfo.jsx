@@ -6,14 +6,22 @@ import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ProgressInpunt from './ProgressInpunt';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
-import { copyUrl } from '../servicesAPI';
+import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+
+import { copyUrl, setDoneRecipes, setFavorite } from '../servicesAPI';
 
 function RecipeInfo({ recipeInfo: {
   typeDrink, details, ingredients, pathname, measures }, page }) {
   const [isEnableBtn, setIsEnableBtn] = useState();
   const [isShowCopied, setShowCopied] = useState(false);
+
+  const id = typeDrink ? details.idDrink : details.idMeal;
+  const storage1 = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const validStorage = storage1 !== null
+  && storage1.some((favorite) => favorite.id === id);
+  const [isFavorite, setIsFavorite] = useState(!validStorage);
+
   const history = useHistory();
-  // const id = pathname.split('/')[2];
   const enableBtn = () => {
     const checkbox = document.querySelectorAll('input');
     const myArray = [...checkbox];
@@ -22,22 +30,7 @@ function RecipeInfo({ recipeInfo: {
 
   useEffect(() => {
     enableBtn();
-    console.log(details);
-    console.log(new Date().toISOString());
   }, []);
-
-  const doneRecipe = {
-    id: details[typeDrink ? 'idDrink' : 'idMeal'],
-    type: typeDrink ? 'drink' : 'food',
-    nationality: details.strArea || '',
-    category: details.strCategory || '',
-    alcoholicOrNot: details.strAlcoholic || '',
-    name: details.strDrink || details.strMeal,
-    image: details.strDrinkThumb || details.strMealThumb,
-    doneDate: new Date().toISOString(),
-    tags: details.strTags || '',
-
-  };
 
   const handleCopy = () => {
     copy(copyUrl(typeDrink, pathname));
@@ -47,9 +40,33 @@ function RecipeInfo({ recipeInfo: {
   const handleClick = () => {
     const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     localStorage.setItem('doneRecipes', JSON
-      .stringify([...storage, doneRecipe]));
+      .stringify([...storage, setDoneRecipes(details, typeDrink)]));
     setIsEnableBtn(!isEnableBtn);
     history.push('/done-recipes');
+  };
+
+  const addFavoriteStorage = () => {
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    localStorage.setItem('favoriteRecipes', JSON
+      .stringify([...storage, setFavorite(details, typeDrink)]));
+    setIsFavorite(!isFavorite);
+  };
+
+  const removeFavoriteStorage = () => {
+    const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
+    localStorage.setItem('favoriteRecipes', JSON
+      .stringify([...storage.filter((item) => item.id
+        !== setFavorite(details, typeDrink).id)]));
+    setIsFavorite(!isFavorite);
+    console.log(validStorage);
+  };
+
+  const handleClickFavorite = () => {
+    if (!isFavorite) {
+      addFavoriteStorage();
+    } else {
+      removeFavoriteStorage();
+    }
   };
 
   return (
@@ -79,10 +96,14 @@ function RecipeInfo({ recipeInfo: {
       {isShowCopied && <p>Link copied!</p>}
       <button
         type="button"
-        data-testid="favorite-btn"
-        src={ blackHeartIcon }
+        onClick={ handleClickFavorite }
       >
-        <img src={ blackHeartIcon } alt="" />
+        <img
+          src={ isFavorite
+            ? blackHeartIcon : whiteHeartIcon }
+          alt=""
+          data-testid="favorite-btn"
+        />
       </button>
       <h5
         data-testid="recipe-category"

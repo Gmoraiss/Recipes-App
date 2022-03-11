@@ -116,3 +116,34 @@ export const FetchAllIngredients = async (page, type) => {
   const newData = data[type].slice(0, DEFAULT_QTD);
   return newData;
 };
+
+export const setFavorite = (details, typeDrink) => {
+  const favorites = {
+    id: details[typeDrink ? 'idDrink' : 'idMeal'],
+    type: typeDrink ? 'drink' : 'food',
+    nationality: details.strArea || '',
+    category: details.strCategory || '',
+    alcoholicOrNot: details.strAlcoholic || '',
+    name: details.strDrink || details.strMeal,
+    image: details.strDrinkThumb || details.strMealThumb,
+  };
+
+  return favorites;
+};
+
+export const setDoneRecipes = (details, typeDrink) => {
+  const doneRecipe = {
+    id: details[typeDrink ? 'idDrink' : 'idMeal'],
+    type: typeDrink ? 'drink' : 'food',
+    nationality: details.strArea || '',
+    category: details.strCategory || '',
+    alcoholicOrNot: details.strAlcoholic || '',
+    name: details.strDrink || details.strMeal,
+    image: details.strDrinkThumb || details.strMealThumb,
+    doneDate: new Date().toISOString(),
+    tags: details.strTags || '',
+
+  };
+
+  return doneRecipe;
+};

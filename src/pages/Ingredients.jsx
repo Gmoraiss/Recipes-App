@@ -3,14 +3,20 @@ import { Link } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import MyContext from '../context/index';
+import { fetchByIngredient } from '../servicesAPI';
 
 function Ingredients() {
-  const { recipes, foods } = useContext(MyContext);
-  const render = recipes.length > 0 ? recipes : foods;
+  const { recipes, ingredients, setIngredients } = useContext(MyContext);
+
+  const getIngredients = async () => {
+    setIngredients(await fetchByIngredient());
+  };
 
   useEffect(() => {
-    // console.log(render);
+    getIngredients();
   }, []);
+
+  const render = recipes.length > 0 ? recipes : ingredients;
 
   return (
     <div>
@@ -18,8 +24,8 @@ function Ingredients() {
         title="Explore Ingredients"
       />
 
-      {foods.length > 0 && render.map((value, index) => (
-        <Link key={ index } to={ `/foods/${value.idMeal}` }>
+      {ingredients.length > 0 && render.map((value, index) => (
+        <Link key={ index } to={ `/explore/foods/ingredients${value.idMeal}` }>
           <div data-testid={ `${index}-ingredient-card` }>
             <img
               src={ value.strMealThumb }

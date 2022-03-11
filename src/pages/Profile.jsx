@@ -11,7 +11,8 @@ function Profile() {
   };
 
   const getEmail = JSON.parse(localStorage
-    .getItem('user')).email || 'você não está logado';
+    .getItem('user')) !== null ? JSON.parse(localStorage
+      .getItem('user')) : 'você não está logado';
 
   return (
     <div>
@@ -54,5 +55,5 @@ function Profile() {
     </div>
   );
 }
-//
+
 export default Profile;

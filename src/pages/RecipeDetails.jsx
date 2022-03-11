@@ -2,7 +2,7 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import '../App.css';
-import { fetchDrinkDetails, fetchDrinks, fetchMeal, fetchMealDetails, filterIngredients,
+import { fetchDrinkDetails, fetchMealDetails, filterIngredients, getRecomended,
 } from '../servicesAPI';
 import RecipeInfo from '../components/RecipeInfo';
 import MyContext from '../context';
@@ -30,13 +30,6 @@ function RecipeDetails() {
     setDetails(data[0]);
   };
 
-  const getRecomended = async (qtd) => {
-    const data = pathname.split('/')[1] === 'drinks'
-      ? await fetchMeal(qtd)
-      : await fetchDrinks(qtd);
-    setRecomended(data);
-  };
-
   const redirectProgress = () => {
     push(`/${pathname.split('/')[1]}/${
       pathname.split('/')[2]}/in-progress`);
@@ -61,8 +54,9 @@ function RecipeDetails() {
 
   const validDoneRecipe = () => {
     const storage = JSON.parse(localStorage
-      .getItem('doneRecipes')) || [];
-    return storage[id];
+      .getItem('doneRecipes'));
+    if (storage) return storage.some(({ id: idRecipe }) => idRecipe === id);
+    return false;
   };
 
   const handleClick = () => {
@@ -73,7 +67,7 @@ function RecipeDetails() {
   useEffect(() => {
     const SIX = 6;
     getDetails(pathname.split('/')[2]);
-    getRecomended(SIX);
+    getRecomended(SIX, pathname, setRecomended);
   }, []);
 
   useEffect(() => {

@@ -85,3 +85,10 @@ export const copyUrl = (typeDrink, pathname) => {
     : `http://localhost:3000${pathname.substr(0, LENGTHFOODS)}`;
   return URL;
 };
+
+export const getRecomended = async (qtd, pathname, setter) => {
+  const data = pathname.split('/')[1] === 'drinks'
+    ? await fetchMeal(qtd)
+    : await fetchDrinks(qtd);
+  setter(data);
+};

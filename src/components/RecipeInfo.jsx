@@ -13,7 +13,7 @@ function RecipeInfo({ recipeInfo: {
   const [isEnableBtn, setIsEnableBtn] = useState();
   const [isShowCopied, setShowCopied] = useState(false);
   const history = useHistory();
-  const id = pathname.split('/')[2];
+  // const id = pathname.split('/')[2];
   const enableBtn = () => {
     const checkbox = document.querySelectorAll('input');
     const myArray = [...checkbox];
@@ -46,9 +46,8 @@ function RecipeInfo({ recipeInfo: {
 
   const handleClick = () => {
     const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
-    console.log(storage);
     localStorage.setItem('doneRecipes', JSON
-      .stringify({ ...storage, [id]: doneRecipe }));
+      .stringify([...storage, doneRecipe]));
     setIsEnableBtn(!isEnableBtn);
     history.push('/done-recipes');
   };

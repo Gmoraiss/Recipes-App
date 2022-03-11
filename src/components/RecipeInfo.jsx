@@ -15,11 +15,11 @@ function RecipeInfo({ recipeInfo: {
   const [isEnableBtn, setIsEnableBtn] = useState();
   const [isShowCopied, setShowCopied] = useState(false);
 
-  const id = typeDrink ? details.idDrink : details.idMeal;
+  const id = pathname.split('/')[2];
   const storage1 = JSON.parse(localStorage.getItem('favoriteRecipes'));
   const validStorage = storage1 !== null
   && storage1.some((favorite) => favorite.id === id);
-  const [isFavorite, setIsFavorite] = useState(!validStorage);
+  const [isFavorite, setIsFavorite] = useState(validStorage);
 
   const history = useHistory();
   const enableBtn = () => {
@@ -30,6 +30,7 @@ function RecipeInfo({ recipeInfo: {
 
   useEffect(() => {
     enableBtn();
+    console.log(validStorage);
   }, []);
 
   const handleCopy = () => {
@@ -58,7 +59,6 @@ function RecipeInfo({ recipeInfo: {
       .stringify([...storage.filter((item) => item.id
         !== setFavorite(details, typeDrink).id)]));
     setIsFavorite(!isFavorite);
-    console.log(validStorage);
   };
 
   const handleClickFavorite = () => {

@@ -7,7 +7,6 @@ import RecipesProvider from './context/RecipesProvider';
 import Foods from './pages/Foods';
 import Drinks from './pages/Drinks';
 import RecipeDetails from './pages/RecipeDetails';
-import ProgressRecipe from './pages/ProgressRecipe';
 import Explore from './pages/Explore';
 import ExploreRecipe from './pages/ExploreRecipe';
 import Ingredients from './pages/Ingredients';
@@ -25,8 +24,8 @@ function App() {
         <Route exact path="/drinks" component={ Drinks } />
         <Route exact path="/foods/:id" component={ RecipeDetails } />
         <Route exact path="/drinks/:id" component={ RecipeDetails } />
-        <Route exact path="/foods/:id/in-progress" component={ ProgressRecipe } />
-        <Route exact path="/drinks/:id/in-progress" component={ ProgressRecipe } />
+        <Route exact path="/foods/:id/in-progress" component={ RecipeDetails } />
+        <Route exact path="/drinks/:id/in-progress" component={ RecipeDetails } />
         <Route exact path="/explore" component={ Explore } />
         <Route exact path="/explore/foods" component={ ExploreRecipe } />
         <Route exact path="/explore/drinks" component={ ExploreRecipe } />

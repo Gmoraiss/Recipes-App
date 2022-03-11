@@ -4,20 +4,18 @@ const FIVE = 5;
 export const fetchByIngredient = async (ingredient, page) => {
   const INGREDIENTS_URL = page === 'foods' ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}` : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const data = await (await fetch(INGREDIENTS_URL)).json();
-  console.log(data);
+
   return data;
 };
 export const fetchByName = async (name, page) => {
   const NAME_URL = page === 'foods' ? `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`;
   const data = await (await fetch(NAME_URL)).json();
-  console.log(data);
 
   return data;
 };
 export const fetchFirstLetter = async (firstLetter, page) => {
   const LETTER_URL = page === 'foods' ? `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}` : `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`;
   const data = await (await fetch(LETTER_URL)).json();
-  console.log(data);
 
   return data;
 };
@@ -25,6 +23,7 @@ export const fetchDrinks = async (qtd = DEFAULT_QTD) => {
   const DRINKS_URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
   const { drinks } = await (await fetch(DRINKS_URL)).json();
   const newData = drinks.slice(0, qtd);
+
   return newData;
 };
 export const fetchMeal = async (qtd = DEFAULT_QTD) => {
@@ -90,4 +89,20 @@ export const filters = {
   inputIngredient: fetchByIngredient,
   inputName: fetchByName,
   inputLetter: fetchFirstLetter,
+};
+
+export const copyUrl = (typeDrink, pathname) => {
+  const LENGTHDRINKS = 14;
+  const LENGTHFOODS = 12;
+
+  const URL = typeDrink ? `http://localhost:3000${pathname.substr(0, LENGTHDRINKS)}`
+    : `http://localhost:3000${pathname.substr(0, LENGTHFOODS)}`;
+  return URL;
+};
+
+export const getRecomended = async (qtd, pathname, setter) => {
+  const data = pathname.split('/')[1] === 'drinks'
+    ? await fetchMeal(qtd)
+    : await fetchDrinks(qtd);
+  setter(data);
 };

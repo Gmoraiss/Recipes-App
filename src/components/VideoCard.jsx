@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export default function VideoCard({ details }) {
+  console.log(details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/'));
   return (
     <div>
       <iframe
@@ -16,7 +17,7 @@ export default function VideoCard({ details }) {
         title="YouTube video player"
         width="640"
         height="360"
-        src={ details.strYoutube }
+        src={ details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/') }
         id="widget2"
       />
     </div>

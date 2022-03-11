@@ -116,3 +116,9 @@ export const FetchAllIngredients = async (page, type) => {
   const newData = data[type].slice(0, DEFAULT_QTD);
   return newData;
 };
+
+export const FecthAllNationalities = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const { meals } = await (await fetch(URL)).json();
+  return meals;
+};

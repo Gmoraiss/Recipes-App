@@ -64,7 +64,6 @@ function RecipeDetails() {
       .getItem('doneRecipes')) || [];
     return storage[id];
   };
-  validDoneRecipe();
 
   const handleClick = () => {
     addRecipe();

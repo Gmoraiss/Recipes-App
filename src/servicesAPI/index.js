@@ -76,3 +76,12 @@ export const filters = {
   inputName: fetchByName,
   inputLetter: fetchFirstLetter,
 };
+
+export const copyUrl = (typeDrink, pathname) => {
+  const LENGTHDRINKS = 14;
+  const LENGTHFOODS = 12;
+
+  const URL = typeDrink ? `http://localhost:3000${pathname.substr(0, LENGTHDRINKS)}`
+    : `http://localhost:3000${pathname.substr(0, LENGTHFOODS)}`;
+  return URL;
+};

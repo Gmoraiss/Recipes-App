@@ -1,14 +1,18 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { BsShare } from 'react-icons/bs';
-import { MdOutlineFavoriteBorder } from 'react-icons/md';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import ProgressInpunt from './ProgressInpunt';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
+import { copyUrl } from '../servicesAPI';
 
 function RecipeInfo({ recipeInfo: {
   typeDrink, details, ingredients, pathname, measures }, page }) {
   const [isEnableBtn, setIsEnableBtn] = useState();
+  const [isShowCopied, setShowCopied] = useState(false);
+  const history = useHistory();
   const id = pathname.split('/')[2];
   const enableBtn = () => {
     const checkbox = document.querySelectorAll('input');
@@ -35,12 +39,18 @@ function RecipeInfo({ recipeInfo: {
 
   };
 
+  const handleCopy = () => {
+    copy(copyUrl(typeDrink, pathname));
+    setShowCopied(true);
+  };
+
   const handleClick = () => {
     const storage = JSON.parse(localStorage.getItem('doneRecipes')) || [];
     console.log(storage);
     localStorage.setItem('doneRecipes', JSON
       .stringify({ ...storage, [id]: doneRecipe }));
     setIsEnableBtn(!isEnableBtn);
+    history.push('/done-recipes');
   };
 
   return (
@@ -63,17 +73,17 @@ function RecipeInfo({ recipeInfo: {
       <button
         data-testid="share-btn"
         type="button"
-        onClick={ () => {
-          copy(pathname);
-        } }
+        onClick={ handleCopy }
       >
         <BsShare />
       </button>
+      {isShowCopied && <p>Link copied!</p>}
       <button
         type="button"
         data-testid="favorite-btn"
+        src={ blackHeartIcon }
       >
-        <MdOutlineFavoriteBorder />
+        <img src={ blackHeartIcon } alt="" />
       </button>
       <h5
         data-testid="recipe-category"

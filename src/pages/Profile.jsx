@@ -1,20 +1,17 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 function Profile() {
   const history = useHistory();
-  const [userEmail, setUserEmail] = useState();
   const logoutBtn = () => {
     localStorage.clear();
     history.push('/');
   };
 
-  useEffect(() => {
-    const getEmail = JSON.parse(localStorage.getItem('user'));
-    setUserEmail(getEmail.email);
-  }, []);
+  const getEmail = JSON.parse(localStorage.getItem('user')) !== null
+    ? JSON.parse(localStorage.getItem('user').email) : 'Você não está logado';
 
   return (
     <div>
@@ -22,7 +19,7 @@ function Profile() {
       <p
         data-testid="profile-email"
       >
-        { userEmail }
+        { getEmail }
       </p>
 
       <button

@@ -11,7 +11,8 @@ function Profile() {
   };
 
   const getEmail = JSON.parse(localStorage.getItem('user')) !== null
-    ? JSON.parse(localStorage.getItem('user').email) : 'Você não está logado';
+    ? JSON.parse(localStorage.getItem('user')).email
+    : 'você não está logado';
 
   return (
     <div>

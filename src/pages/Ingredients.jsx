@@ -1,43 +1,67 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { useContext, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import MyContext from '../context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import MyContext from '../context/index';
-import { fetchByIngredient } from '../servicesAPI';
+import { FetchAllIngredients, fetchByIngredient } from '../servicesAPI';
 
 function Ingredients() {
-  const { recipes, ingredients, setIngredients } = useContext(MyContext);
-
-  const getIngredients = async () => {
-    setIngredients(await fetchByIngredient());
+  const location = useLocation();
+  const page = location.pathname.split('/')[2];
+  const type = page === 'foods' ? 'meals' : 'drinks';
+  const [allIngredients, setAllIngredients] = useState([]);
+  const { setRecipes } = useContext(MyContext);
+  const getAllIngredients = async () => {
+    const data = await FetchAllIngredients(page, type);
+    setAllIngredients(data);
   };
 
   useEffect(() => {
-    getIngredients();
+    getAllIngredients();
   }, []);
 
-  const render = recipes.length > 0 ? recipes : ingredients;
+  const handleClick = async (ingredient) => {
+    const TWELVE = 12;
+    const newRecipes = await fetchByIngredient(ingredient, page);
+    setRecipes(newRecipes[type].slice(0, TWELVE));
+  };
 
   return (
     <div>
       <Header
         title="Explore Ingredients"
       />
+      <div>
+        { allIngredients.map((ingredient, index) => (
+          <Link
+            to={ `/${page}` }
+            key={ index }
+            onClick={ () => {
+              handleClick(ingredient.strIngredient || ingredient.strIngredient1);
+            } }
+          >
+            <div data-testid={ `${index}-ingredient-card` }>
+              <p data-testid={ `${index}-card-name` }>
+                {ingredient.strIngredient
+           || ingredient.strIngredient1}
 
-      {ingredients.length > 0 && render.map((value, index) => (
-        <Link key={ index } to={ `/explore/foods/ingredients${value.idMeal}` }>
-          <div data-testid={ `${index}-ingredient-card` }>
-            <img
-              src={ value.strMealThumb }
-              style={ { width: '300px' } }
-              alt="strMealThumb"
-              data-testid={ `${index}-card-img` }
-            />
-            <h2 data-testid={ `${index}-card-name` }>{value.strMeal}</h2>
-          </div>
-        </Link>
-      ))}
+              </p>
+              <img
+                data-testid={ `${index}-card-img` }
+                src={
+                  `https://www.${page === 'foods' ? 'themealdb.com' : 'thecocktaildb.com'}/images/ingredients/${ingredient.strIngredient
+                || ingredient.strIngredient1}-Small.png`
+                }
+                alt={ ingredient.strIngredient
+                || ingredient.strIngredient1 }
+              />
+
+            </div>
+          </Link>
+
+        ))}
+      </div>
 
       <Footer />
 

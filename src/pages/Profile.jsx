@@ -10,9 +10,15 @@ function Profile() {
     history.push('/');
   };
 
+<<<<<<< HEAD
   const getEmail = JSON.parse(localStorage
     .getItem('user')) !== null ? JSON.parse(localStorage
       .getItem('user')) : 'você não está logado';
+=======
+  const getEmail = JSON.parse(localStorage.getItem('user')) !== null
+    ? JSON.parse(localStorage.getItem('user')).email
+    : 'você não está logado';
+>>>>>>> d07627a9776a885dafaf6ebdcfc63e7140292cb5
 
   return (
     <div>

@@ -4,6 +4,8 @@ const FIVE = 5;
 export const fetchByIngredient = async (ingredient, page) => {
   const INGREDIENTS_URL = page === 'foods' ? `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}` : `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`;
   const data = await (await fetch(INGREDIENTS_URL)).json();
+  console.log(data);
+  console.log(INGREDIENTS_URL);
 
   return data;
 };
@@ -105,4 +107,12 @@ export const getRecomended = async (qtd, pathname, setter) => {
     ? await fetchMeal(qtd)
     : await fetchDrinks(qtd);
   setter(data);
+};
+
+export const FetchAllIngredients = async (page, type) => {
+  const URL = page === 'foods' ? 'https://www.themealdb.com/api/json/v1/1/list.php?i=list'
+    : 'https://www.thecocktaildb.com/api/json/v1/1/list.php?i=list';
+  const data = await (await fetch(URL)).json();
+  const newData = data[type].slice(0, DEFAULT_QTD);
+  return newData;
 };

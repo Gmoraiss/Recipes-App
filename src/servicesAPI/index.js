@@ -144,6 +144,11 @@ export const setDoneRecipes = (details, typeDrink) => {
     tags: details.strTags || '',
 
   };
-
   return doneRecipe;
+};
+
+export const FecthAllNationalities = async () => {
+  const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?a=list';
+  const { meals } = await (await fetch(URL)).json();
+  return meals;
 };

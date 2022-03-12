@@ -1,39 +1,65 @@
-import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom';
-// import MyContext from '../context';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from 'react';
+import { useLocation, Link } from 'react-router-dom';
+import MyContext from '../context';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
-import { FecthAllNationalities } from '../servicesAPI';
+import { FecthAllNationalities, fetchMeal, FilterByNationalities } from '../servicesAPI';
 
 function Nationalities() {
   const location = useLocation();
   const page = location.pathname.split('/')[3];
   const type = page === 'foods' && 'meals';
-  // const { setRecipes } = useContext(MyContext);
+  const { setFoods, foods } = useContext(MyContext);
   const [allNationalities, setAllNationalities] = useState([]);
+  const [selectedNationality, setSelectedNationality] = useState('All');
+  const [cardsNationalities, setcardsNationalities] = useState([]);
 
   const getAllNationalities = async () => {
     const data = await FecthAllNationalities(page, type);
     setAllNationalities(data);
   };
 
+  const getAllMeals = async () => {
+    const defaultFoods = await fetchMeal();
+    setFoods(defaultFoods);
+    setcardsNationalities([]);
+  };
+
+  const getCardsNationalities = async (area) => {
+    const DEFAULT_QTD = 12;
+    const data = await FilterByNationalities(area);
+    setcardsNationalities(data.slice(0, DEFAULT_QTD));
+  };
+
+  const handleChange = ({ target: { value } }) => {
+    setSelectedNationality(value);
+    if (value !== 'All') {
+      getCardsNationalities(value);
+    } else { getAllMeals(); }
+  };
+
   useEffect(() => {
     getAllNationalities();
-    console.log(allNationalities);
+    console.log(cardsNationalities);
+  }, [selectedNationality]);
+
+  useEffect(() => {
+    getAllMeals();
   }, []);
 
-  // const handleClick = async (nationalities) => {
-  //   const TWELVE = 12;
-  //   const newRecipes = await FecthAllNationalities(nationalities, page);
-  //   setRecipes(newRecipes[type].slice(0, TWELVE));
-  // };
-
+  const render = cardsNationalities.length > 0 ? cardsNationalities : foods;
   return (
     <div>
       <Header title="Explore Nationalities" isSearchButton />
 
       <div>
-        <select data-testid="explore-by-nationality-dropdown">
+        <select
+          data-testid="explore-by-nationality-dropdown"
+          value={ selectedNationality }
+          onChange={ handleChange }
+        >
+          <option data-testid="All-option">All</option>
           {allNationalities.map((nationalities, index) => (
             <option
               key={ index }
@@ -41,17 +67,22 @@ function Nationalities() {
             >
               {nationalities.strArea}
             </option>
-            // <Link
-            //   to={ `/${page}` }
-            //   key={ index }
-            //   onClick={ () => {
-            //     handleClick(nationalities.strArea);
-            //   } }
-            // >
-            //   <div data-testid={ `${index}-ingredient-card` } />
-            // </Link>
           ))}
         </select>
+        { render
+          ? (render.map((card, index) => (
+            <Link key={ card.idMeal } to={ `/foods/${card.idMeal}` }>
+              <div data-testid={ `${index}-recipe-card` }>
+                <h1 data-testid={ `${index}-card-name` }>{card.strMeal}</h1>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  style={ { width: '300px' } }
+                  src={ card.strMealThumb }
+                  alt="card"
+                />
+              </div>
+            </Link>
+          ))) : ''}
       </div>
 
       <Footer />

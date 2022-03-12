@@ -86,6 +86,7 @@ function DoneRecipes() {
               <div key={ index }>
                 <Link to={ pathName }>
                   <img
+                    style={ { width: '300px' } }
                     data-testid={ `${index}-horizontal-image` }
                     src={ recipe.image }
                     alt={ recipe.id }

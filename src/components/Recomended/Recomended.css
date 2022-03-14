@@ -1,18 +1,18 @@
 .recomended-container {
   display: flex;
-  overflow: auto;
-  width: 100%;
   gap: 10px;
+  overflow: auto;
   padding-bottom: 55px;
+  width: 100%;
 }
 
 .recomended-card {
-  width: 50vw;
-  box-shadow: 0px 4px 4px rgba(128, 128, 128, 0.385);
   border-radius: 0.5rem;
+  box-shadow: 0 4px 4px rgba(128, 128, 128, 0.385);
+  width: 50vw;
 }
 
 .recomended-card img {
+  border-radius: 0.5rem;
   width: 50vw;
-  border-radius: 0.5rem
 }

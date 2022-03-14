@@ -3,7 +3,6 @@ import copy from 'clipboard-copy';
 import { Link } from 'react-router-dom';
 import Header from '../components/Header';
 import shareIcon from '../images/shareIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import { copyUrl } from '../servicesAPI';
 
 function DoneRecipes() {
@@ -32,14 +31,6 @@ function DoneRecipes() {
   const handleCopy = (typeDrink, pathname) => {
     copy(copyUrl(typeDrink, pathname));
     setIsShowCopied(true);
-  };
-
-  const removeDoneRecipes = (recipeId) => {
-    const storage = JSON.parse(localStorage.getItem('favoriteRecipes')) || [];
-    localStorage.setItem('favoriteRecipes', JSON
-      .stringify([...storage.filter((item) => item.id
-        !== recipeId)]));
-    attDoneRecipes();
   };
 
   const render = filteredDoneRecipes.length > 0 ? filteredDoneRecipes : doneRecipes;
@@ -121,22 +112,13 @@ function DoneRecipes() {
                   <button
                     data-testid="share-btn"
                     type="button"
+                    className="share-btn"
                     onClick={ () => handleCopy(typeFood, pathName) }
                   >
                     <img
                       data-testid={ `${index}-horizontal-share-btn` }
                       src={ shareIcon }
                       alt="share-btn"
-                    />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={ () => removeDoneRecipes(recipe.id) }
-                  >
-                    <img
-                      alt="favorite-btn"
-                      src={ whiteHeartIcon }
-                      data-testid={ `${index}-horizontal-favorite-btn` }
                     />
                   </button>
                   {

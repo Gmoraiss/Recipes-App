@@ -71,6 +71,7 @@ function RecipeInfo({ recipeInfo: {
   };
 
   return (
+
     <div
       className="recipe-info"
     >
@@ -123,6 +124,17 @@ function RecipeInfo({ recipeInfo: {
         {details.strAlcoholic || details.strCategory}
 
       </h5>
+      <div>
+        <h3>Instructions:</h3>
+
+        <span
+          data-testid="instructions"
+          className="instructions"
+        >
+          {details.strInstructions}
+
+        </span>
+      </div>
       <h3>Ingredients:</h3>
       <div className="ingredients-container">
         {page === 'details'
@@ -136,7 +148,10 @@ function RecipeInfo({ recipeInfo: {
               {measures[index][1]}
 
             </p>
-          )))
+          ))
+
+          )
+
           : (
             <div>
               {ingredients.filter((ingr) => ingr[1] !== null && ingr[1] !== '')
@@ -151,32 +166,22 @@ function RecipeInfo({ recipeInfo: {
                     pathname={ pathname.split('/')[1] }
                   />
                 ))}
+
+              <button
+                data-testid="finish-recipe-btn"
+                type="button"
+                disabled={ !isEnableBtn }
+                onClick={ handleClick }
+                className="start-btn"
+              >
+                Finish Recipe
+
+              </button>
             </div>
 
           )}
       </div>
 
-      <h3>
-        Instructions:
-      </h3>
-
-      <span
-        data-testid="instructions"
-        className="instructions"
-      >
-        {details.strInstructions}
-
-      </span>
-      <button
-        data-testid="finish-recipe-btn"
-        type="button"
-        disabled={ !isEnableBtn }
-        onClick={ handleClick }
-        className="start-btn"
-      >
-        Finish Recipe
-
-      </button>
     </div>
   );
 }

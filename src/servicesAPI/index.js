@@ -141,7 +141,7 @@ export const setDoneRecipes = (details, typeDrink) => {
     name: details.strDrink || details.strMeal,
     image: details.strDrinkThumb || details.strMealThumb,
     doneDate: new Date().toISOString(),
-    tags: [details.strTags] || '',
+    tags: details.strTags !== null ? details.strTags.split(',') : [''],
 
   };
   return doneRecipe;

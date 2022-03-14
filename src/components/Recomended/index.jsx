@@ -1,7 +1,8 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import './Recomended.css';
 
-function Recomended({ index, recipe, typeDrink }) {
+function Recomended({ index, recipe }) {
   return (
     <div
       key={ index }
@@ -9,13 +10,13 @@ function Recomended({ index, recipe, typeDrink }) {
       data-testid={ `${index}-recomendation-card` }
     >
       <img
-        src={ typeDrink ? recipe.strMealThumb : recipe.strDrinkThumb }
+        src={ recipe.strMealThumb || recipe.strDrinkThumb }
         alt="recipe pic"
       />
       <h3
         data-testid={ `${index}-recomendation-title` }
       >
-        {typeDrink ? recipe.strMeal : recipe.strDrink}
+        {recipe.strMeal || recipe.strDrink}
 
       </h3>
 
@@ -26,7 +27,6 @@ function Recomended({ index, recipe, typeDrink }) {
 Recomended.propTypes = {
   recipe: PropTypes.objectOf(PropTypes.any).isRequired,
   index: PropTypes.number.isRequired,
-  typeDrink: PropTypes.bool.isRequired,
 };
 
 export default Recomended;

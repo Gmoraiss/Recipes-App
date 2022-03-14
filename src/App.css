@@ -3,14 +3,3 @@
   margin: 0;
   padding: 0;
 }
-
-.recomended-container {
-  display: flex;
-  overflow: auto;
-  width: 100%;
-}
-
-.recomended-card {
-  width: 50vw;
-
-}

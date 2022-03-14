@@ -31,3 +31,10 @@ h3 {
   background-color: rgb(236, 236, 236);
   padding: 0.5rem;
 }
+
+.instructions {
+  padding: 0.5rem;
+  text-align: start;
+  display: flex;
+  background-color: rgb(236, 236, 236);
+}

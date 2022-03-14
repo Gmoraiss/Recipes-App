@@ -151,21 +151,32 @@ function RecipeInfo({ recipeInfo: {
                     pathname={ pathname.split('/')[1] }
                   />
                 ))}
-              <button
-                data-testid="finish-recipe-btn"
-                type="button"
-                disabled={ !isEnableBtn }
-                onClick={ handleClick }
-              >
-                Finish Recipe
-
-              </button>
             </div>
 
           )}
       </div>
 
-      <h5 data-testid="instructions">{details.strInstructions}</h5>
+      <h3>
+        Instructions:
+      </h3>
+
+      <span
+        data-testid="instructions"
+        className="instructions"
+      >
+        {details.strInstructions}
+
+      </span>
+      <button
+        data-testid="finish-recipe-btn"
+        type="button"
+        disabled={ !isEnableBtn }
+        onClick={ handleClick }
+        className="start-btn"
+      >
+        Finish Recipe
+
+      </button>
     </div>
   );
 }

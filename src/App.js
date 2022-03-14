@@ -14,6 +14,7 @@ import Profile from './pages/Profile';
 import DoneRecipes from './pages/DoneRecipes';
 import Favorites from './pages/Favorites';
 import Nationalities from './pages/Nationalities';
+import NotFound from './pages/NotFound';
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
         <Route exact path="/explore/foods/ingredients" component={ Ingredients } />
         <Route exact path="/explore/drinks/ingredients" component={ Ingredients } />
         <Route exact path="/explore/foods/nationalities" component={ Nationalities } />
+        <Route exact path="/explore/drinks/nationalities" component={ NotFound } />
         <Route exact path="/profile" component={ Profile } />
         <Route exact path="/done-recipes" component={ DoneRecipes } />
         <Route exact path="/favorite-recipes" component={ Favorites } />

@@ -6,6 +6,7 @@
   flex-direction: column;
   text-align: center;
   width: 45%;
+  margin-top: 40px;
 }
 
 .recipe-card a {

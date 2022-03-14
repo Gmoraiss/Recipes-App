@@ -21,7 +21,14 @@ function Header({ title, isSearchButton }) {
       >
         <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
       </button>
-      <h2 data-testid="page-title">{title}</h2>
+      <h2
+        /*  style={ { position: 'absolute', top: '0', right: '37%' } } */
+        data-testid="page-title"
+      >
+        {title}
+
+      </h2>
+
       {isSearchButton
         && (
           <button

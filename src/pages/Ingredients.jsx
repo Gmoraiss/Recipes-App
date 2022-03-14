@@ -32,33 +32,34 @@ function Ingredients() {
       <Header
         title="Explore Ingredients"
       />
-      <div>
+      <div className="cards-container">
         { allIngredients.map((ingredient, index) => (
-          <Link
-            to={ `/${page}` }
-            key={ index }
-            onClick={ () => {
-              handleClick(ingredient.strIngredient || ingredient.strIngredient1);
-            } }
-          >
-            <div data-testid={ `${index}-ingredient-card` }>
-              <p data-testid={ `${index}-card-name` }>
-                {ingredient.strIngredient
+          <div className="recipe-card" key={ index }>
+            <Link
+              to={ `/${page}` }
+              onClick={ () => {
+                handleClick(ingredient.strIngredient || ingredient.strIngredient1);
+              } }
+            >
+              <div data-testid={ `${index}-ingredient-card` }>
+                <p data-testid={ `${index}-card-name` }>
+                  {ingredient.strIngredient
            || ingredient.strIngredient1}
 
-              </p>
-              <img
-                data-testid={ `${index}-card-img` }
-                src={
-                  `https://www.${page === 'foods' ? 'themealdb.com' : 'thecocktaildb.com'}/images/ingredients/${ingredient.strIngredient
+                </p>
+                <img
+                  data-testid={ `${index}-card-img` }
+                  src={
+                    `https://www.${page === 'foods' ? 'themealdb.com' : 'thecocktaildb.com'}/images/ingredients/${ingredient.strIngredient
                 || ingredient.strIngredient1}-Small.png`
-                }
-                alt={ ingredient.strIngredient
+                  }
+                  alt={ ingredient.strIngredient
                 || ingredient.strIngredient1 }
-              />
+                />
 
-            </div>
-          </Link>
+              </div>
+            </Link>
+          </div>
 
         ))}
       </div>

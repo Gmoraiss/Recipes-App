@@ -1,14 +1,15 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { BsShare } from 'react-icons/bs';
 import PropTypes from 'prop-types';
 import copy from 'clipboard-copy';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import ProgressInpunt from './ProgressInpunt';
-import blackHeartIcon from '../images/blackHeartIcon.svg';
-import whiteHeartIcon from '../images/whiteHeartIcon.svg';
+import ProgressInpunt from '../ProgressInpunt';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import './recipeInfo.css';
+import shereIcon from '../../images/shareIcon.svg';
 
-import { copyUrl, setDoneRecipes, setFavorite } from '../servicesAPI';
+import { copyUrl, setDoneRecipes, setFavorite } from '../../servicesAPI';
 
 function RecipeInfo({ recipeInfo: {
   typeDrink, details, ingredients, pathname, measures }, page }) {
@@ -70,87 +71,99 @@ function RecipeInfo({ recipeInfo: {
   };
 
   return (
-    <div>
+    <div
+      className="recipe-info"
+    >
       <img
+        className="img-recipe"
         src={
-          pathname.split('/')[1] === 'drinks'
-            ? details.strDrinkThumb
-            : details.strMealThumb
+          details.strDrinkThumb
+             || details.strMealThumb
         }
         data-testid="recipe-photo"
         alt=""
       />
-      <h1
-        data-testid="recipe-title"
+      <div
+        className="recipe-title-container"
       >
-        { typeDrink ? details.strDrink : details.strMeal}
+        <h1
+          data-testid="recipe-title"
+        >
+          { details.strDrink || details.strMeal}
 
-      </h1>
-      <button
-        data-testid="share-btn"
-        type="button"
-        onClick={ handleCopy }
-      >
-        <BsShare />
-      </button>
-      {isShowCopied && <p>Link copied!</p>}
-      <button
-        type="button"
-        onClick={ handleClickFavorite }
-      >
-        <img
-          src={ isFavorite
-            ? blackHeartIcon : whiteHeartIcon }
-          alt=""
-          data-testid="favorite-btn"
-        />
-      </button>
+        </h1>
+        <div>
+          <button
+            data-testid="share-btn"
+            type="button"
+            onClick={ handleCopy }
+          >
+            <img src={ shereIcon } alt="" srcSet="" />
+          </button>
+          <button
+            type="button"
+            onClick={ handleClickFavorite }
+          >
+
+            <img
+              src={ isFavorite
+                ? blackHeartIcon : whiteHeartIcon }
+              alt=""
+              data-testid="favorite-btn"
+            />
+          </button>
+          {isShowCopied && <p>Link copied!</p>}
+        </div>
+      </div>
+
       <h5
+        className="recipe-category"
         data-testid="recipe-category"
       >
-        {typeDrink ? details.strAlcoholic : details.strCategory}
+        {details.strAlcoholic || details.strCategory}
 
       </h5>
-      <h5>Ingredients:</h5>
-
-      {page === 'details'
-        ? (ingredients.map((ingredient, index) => (
-          <p
-            data-testid={ `${index}-ingredient-name-and-measure` }
-            key={ ingredient[0] }
-          >
-            {ingredient[1]}
-            {''}
-            {measures[index][1]}
-
-          </p>
-        )))
-        : (
-          <div>
-            {ingredients.filter((ingr) => ingr[1] !== null && ingr[1] !== '')
-              .map((ingredient, index) => (
-                <ProgressInpunt
-                  enableBtn={ enableBtn }
-                  key={ index }
-                  ingredient={ ingredient }
-                  measures={ measures }
-                  index={ index }
-                  id={ pathname.split('/')[2] }
-                  pathname={ pathname.split('/')[1] }
-                />
-              ))}
-            <button
-              data-testid="finish-recipe-btn"
-              type="button"
-              disabled={ !isEnableBtn }
-              onClick={ handleClick }
+      <h3>Ingredients:</h3>
+      <div className="ingredients-container">
+        {page === 'details'
+          ? (ingredients.map((ingredient, index) => (
+            <p
+              data-testid={ `${index}-ingredient-name-and-measure` }
+              key={ ingredient[0] }
             >
-              Finish Recipe
+              {ingredient[1]}
+              {''}
+              {measures[index][1]}
 
-            </button>
-          </div>
+            </p>
+          )))
+          : (
+            <div>
+              {ingredients.filter((ingr) => ingr[1] !== null && ingr[1] !== '')
+                .map((ingredient, index) => (
+                  <ProgressInpunt
+                    enableBtn={ enableBtn }
+                    key={ index }
+                    ingredient={ ingredient }
+                    measures={ measures }
+                    index={ index }
+                    id={ pathname.split('/')[2] }
+                    pathname={ pathname.split('/')[1] }
+                  />
+                ))}
+              <button
+                data-testid="finish-recipe-btn"
+                type="button"
+                disabled={ !isEnableBtn }
+                onClick={ handleClick }
+              >
+                Finish Recipe
 
-        )}
+              </button>
+            </div>
+
+          )}
+      </div>
 
       <h5 data-testid="instructions">{details.strInstructions}</h5>
     </div>

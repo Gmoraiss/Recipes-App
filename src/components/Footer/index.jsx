@@ -1,8 +1,9 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import drinkIcon from '../images/drinkIcon.svg';
-import exploreIcon from '../images/exploreIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
+import drinkIcon from '../../images/drinkIcon.svg';
+import exploreIcon from '../../images/exploreIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
+import './footer.css';
 
 function Footer() {
   const history = useHistory();
@@ -22,33 +23,43 @@ function Footer() {
   return (
     <footer
       data-testid="footer"
-      className="fixed-bottom"
+      className="footer"
     >
       <button
-        data-testid="drinks-bottom-btn"
         type="button"
         src={ drinkIcon }
         onClick={ drinkRedirect }
       >
-        Bebidas
+        <img
+          data-testid="drinks-bottom-btn"
+          src={ drinkIcon }
+          alt="drink Incon"
+        />
       </button>
 
       <button
-        data-testid="explore-bottom-btn"
         type="button"
         src={ exploreIcon }
         onClick={ exploreRedirect }
       >
-        Explorar
+        <img
+          data-testid="explore-bottom-btn"
+          src={ exploreIcon }
+          alt="exploreIcon"
+        />
       </button>
 
       <button
-        data-testid="food-bottom-btn"
         type="button"
         src={ mealIcon }
         onClick={ foodRedirect }
       >
-        Comida
+        <img
+          data-testid="food-bottom-btn"
+          src={ mealIcon }
+          alt="mealIcon"
+        />
+
       </button>
 
     </footer>

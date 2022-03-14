@@ -1,0 +1,14 @@
+.footer {
+  background-color: rgb(196, 196, 196);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100vw;
+}
+
+.footer button {
+  background-color: rgb(196, 196, 196);
+  border: none;
+  padding: 0.5rem;
+}

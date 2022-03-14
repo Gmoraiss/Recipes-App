@@ -1,13 +1,14 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import '../App.css';
+import '../../App.css';
 import { fetchDrinkDetails, fetchMealDetails, filterIngredients, getRecomended,
-} from '../servicesAPI';
-import RecipeInfo from '../components/RecipeInfo';
-import MyContext from '../context';
-import VideoCard from '../components/VideoCard';
-import Recomended from '../components/Recomended';
+} from '../../servicesAPI';
+import RecipeInfo from '../../components/RecipeInfo';
+import MyContext from '../../context';
+import VideoCard from '../../components/VideoCard';
+import Recomended from '../../components/Recomended';
+import './recipeDetails.css';
 
 function RecipeDetails() {
   const { details,
@@ -89,7 +90,7 @@ function RecipeDetails() {
       ? (
         <RecipeInfo recipeInfo={ recipeInfo } page="in-progress" />
       ) : (
-        <div style={ { overflow: 'hidden' } }>
+        <div>
           <RecipeInfo recipeInfo={ recipeInfo } page="details" />
           {!typeDrink && (
             <VideoCard details={ details } />

@@ -1,8 +1,12 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import drinkIcon from '../images/drinkIcon.svg';
-import exploreIcon from '../images/exploreIcon.svg';
-import mealIcon from '../images/mealIcon.svg';
+import { BiDrink } from 'react-icons/bi';
+import { VscCompass } from 'react-icons/vsc';
+import { GiKnifeFork } from 'react-icons/gi';
+import drinkIcon from '../../images/drinkIcon.svg';
+import exploreIcon from '../../images/exploreIcon.svg';
+import mealIcon from '../../images/mealIcon.svg';
+import './footer.css';
 
 function Footer() {
   const history = useHistory();
@@ -22,33 +26,31 @@ function Footer() {
   return (
     <footer
       data-testid="footer"
-      className="fixed-bottom"
+      className="footer"
     >
       <button
-        data-testid="drinks-bottom-btn"
         type="button"
         src={ drinkIcon }
         onClick={ drinkRedirect }
       >
-        Bebidas
+        <BiDrink />
       </button>
 
       <button
-        data-testid="explore-bottom-btn"
         type="button"
         src={ exploreIcon }
         onClick={ exploreRedirect }
       >
-        Explorar
+        <VscCompass />
       </button>
 
       <button
-        data-testid="food-bottom-btn"
         type="button"
         src={ mealIcon }
         onClick={ foodRedirect }
       >
-        Comida
+        <GiKnifeFork />
+
       </button>
 
     </footer>

@@ -1,66 +1,66 @@
-import React, { useState, useEffect, useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-import {
-  fetchCategoryDrinks, fetchDrinks, fetchSelectCategoryDrinks } from '../servicesAPI';
-import MyContext from '../context/index';
+import Footer from '../../components/Footer';
+import Header from '../../components/Header';
+import MyContext from '../../context/index';
+import { fetchCategoryMeal,
+  fetchMeal, fetchSelectCategoryMeals } from '../../servicesAPI';
+import './Foods.css';
 
-function Drinks() {
-  const { recipes } = useContext(MyContext);
-  const [drinks, setDrinks] = useState([]);
-  const [categoryDrinks, setCategoryDrinks] = useState([]);
+function Foods() {
+  const { recipes, foods, setFoods } = useContext(MyContext);
   const [isFilter, setIsFilter] = useState(true);
   const [categorySelect, setCategorySelect] = useState('');
+  const [categoryFoods, setCategoryFoods] = useState([]);
 
-  const getDrinks = async () => {
-    setDrinks(await fetchDrinks());
-    setCategoryDrinks(await fetchCategoryDrinks());
+  const getFoods = async () => {
+    setFoods(await fetchMeal());
+    setCategoryFoods(await fetchCategoryMeal());
   };
 
   useEffect(() => {
-    getDrinks();
+    getFoods();
   }, []);
 
   const selectCategory = async ({ target: { innerText } }) => {
     setCategorySelect(innerText);
     if (innerText === categorySelect) {
       if (isFilter) {
-        setDrinks(await fetchSelectCategoryDrinks(innerText));
-      } else setDrinks(await fetchDrinks());
+        setFoods(await fetchSelectCategoryMeals(innerText));
+      } else setFoods(await fetchMeal());
       setIsFilter(!isFilter);
     } else {
-      setDrinks(await fetchSelectCategoryDrinks(innerText));
+      setFoods(await fetchSelectCategoryMeals(innerText));
       setIsFilter(!isFilter);
     }
   };
 
   const allCategory = async () => {
-    setDrinks(await fetchDrinks());
+    setFoods(await fetchMeal());
     setIsFilter(true);
     setCategorySelect('');
   };
 
-  const render = recipes.length > 0 ? recipes : drinks;
+  const render = recipes.length > 0 ? recipes : foods;
   return (
     <div>
-
-      <Header isSearchButton title="Drinks" />
+      <Header isSearchButton title="Foods" />
       <div
         className="category-container"
       >
-        {categoryDrinks.length > 0 && categoryDrinks.map((category, index) => (
+        {categoryFoods.length > 0 && categoryFoods.map((category, index) => (
           <div key={ index }>
             <button
               type="button"
               onClick={ selectCategory }
               data-testid={ `${category}-category-filter` }
             >
-              {category === 'Ordinary Drink' ? category.split(' ')[0]
-                : category.split('/')[0] }
+              {category}
             </button>
           </div>
         )) }
+
         <button
           data-testid="All-category-filter"
           onClick={ allCategory }
@@ -73,19 +73,19 @@ function Drinks() {
       <section
         className="cards-container"
       >
-        {drinks.length > 0 && render.map((value, index) => (
+        {foods.length > 0 && render.map((value, index) => (
           <div
-            className="recipe-card"
             key={ index }
+            className="recipe-card"
             data-testid={ `${index}-recipe-card` }
           >
-            <Link to={ `/drinks/${value.idDrink}` }>
+            <Link to={ `/foods/${value.idMeal}` }>
               <img
-                src={ value.strDrinkThumb }
+                src={ value.strMealThumb }
                 alt="strMealThumb"
                 data-testid={ `${index}-card-img` }
               />
-              <h2 data-testid={ `${index}-card-name` }>{value.strDrink}</h2>
+              <h2 data-testid={ `${index}-card-name` }>{value.strMeal}</h2>
             </Link>
           </div>
         ))}
@@ -93,8 +93,7 @@ function Drinks() {
       <Footer />
 
     </div>
-
   );
 }
 
-export default Drinks;
+export default Foods;

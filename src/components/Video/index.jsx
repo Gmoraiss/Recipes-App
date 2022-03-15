@@ -1,10 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import './VideoCard.css';
 
 export default function VideoCard({ details }) {
   console.log(details.strYoutube && details.strYoutube.replace('watch?v=', 'embed/'));
   return (
-    <div>
+    <div className="video-card">
+      <h3>Video:</h3>
       <iframe
         data-testid="video"
         className="video"

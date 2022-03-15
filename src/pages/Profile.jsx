@@ -16,42 +16,46 @@ function Profile() {
 
   return (
     <div>
+
       <Header title="Profile" isSearchButton={ false } />
-      <p
-        data-testid="profile-email"
-      >
-        { getEmail }
-      </p>
 
-      <button
-        data-testid="profile-done-btn"
-        type="button"
-        className="profile-done-btn"
-        onClick={ () => history.push('/done-recipes') }
-      >
-        Done Recipes
-      </button>
+      <div className="explore-container">
+        <p
+          data-testid="profile-email"
+        >
+          { getEmail }
+        </p>
 
-      <button
-        data-testid="profile-favorite-btn"
-        type="button"
-        className="profile-done-btn"
-        onClick={ () => history.push('/favorite-recipes') }
-      >
-        Favorite Recipes
-      </button>
+        <button
+          data-testid="profile-done-btn"
+          type="button"
+          className="explore-btn"
+          onClick={ () => history.push('/done-recipes') }
+        >
+          Done Recipes
+        </button>
 
-      <button
-        data-testid="profile-logout-btn"
-        type="button"
-        className="profile-logout-btn"
-        onClick={ logoutBtn }
-      >
-        Logout
-      </button>
+        <button
+          data-testid="profile-favorite-btn"
+          type="button"
+          className="explore-btn"
+          onClick={ () => history.push('/favorite-recipes') }
+        >
+          Favorite Recipes
+        </button>
 
-      <Footer />
+        <button
+          data-testid="profile-logout-btn"
+          type="button"
+          className="explore-btn"
+          onClick={ logoutBtn }
+        >
+          Logout
+        </button>
 
+        <Footer />
+
+      </div>
     </div>
   );
 }

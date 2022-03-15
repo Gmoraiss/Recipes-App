@@ -22,11 +22,11 @@ function ExploreRecipe() {
       <div>
 
         {pageTitle === 'drinks' ? (
-          <div>
+          <div className="explore-container">
             <button
               data-testid="explore-by-ingredient"
               type="button"
-              className="explore-ingredient-btn"
+              className="explore-btn"
               onClick={ () => history.push('/explore/drinks/ingredients') }
             >
               By Ingredient
@@ -35,7 +35,7 @@ function ExploreRecipe() {
             <button
               data-testid="explore-surprise"
               type="button"
-              className="explore-surprise-btn"
+              className="explore-btn"
               onClick={ surpriseDrink }
             >
               Surprise me!
@@ -43,11 +43,11 @@ function ExploreRecipe() {
           </div>
         )
           : (
-            <div>
+            <div className="explore-container">
               <button
                 data-testid="explore-by-ingredient"
                 type="button"
-                className="explore-ingredient-btn"
+                className="explore-btn"
                 onClick={ () => history.push('/explore/foods/ingredients') }
               >
                 By Ingredient
@@ -56,7 +56,7 @@ function ExploreRecipe() {
               <button
                 data-testid="explore-by-nationality"
                 type="button"
-                className="explore-nationality-btn"
+                className="explore-btn"
                 onClick={ () => history.push('/explore/foods/nationalities') }
               >
                 By Nationality
@@ -65,7 +65,7 @@ function ExploreRecipe() {
               <button
                 data-testid="explore-surprise"
                 type="button"
-                className="explore-surprise-btn"
+                className="explore-btn"
                 onClick={ surpriseFood }
               >
                 Surprise me!

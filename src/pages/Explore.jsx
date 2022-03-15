@@ -9,11 +9,11 @@ function Explore() {
   return (
     <div>
       <Header title="Explore" />
-      <div>
+      <div className="explore-container">
         <button
           data-testid="explore-foods"
           type="button"
-          className="explore-foods-btn"
+          className="explore-btn"
           onClick={ () => history.push('/explore/foods') }
         >
           Explore Foods
@@ -22,7 +22,7 @@ function Explore() {
         <button
           data-testid="explore-drinks"
           type="button"
-          className="explore-drinks-btn"
+          className="explore-btn"
           onClick={ () => history.push('/explore/drinks') }
         >
           Explore Drinks

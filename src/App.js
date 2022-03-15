@@ -15,6 +15,7 @@ import DoneRecipes from './pages/DoneRecipes';
 import Favorites from './pages/Favorites';
 import Nationalities from './pages/Nationalities';
 import NotFound from './pages/NotFound';
+import '@picocss/pico';
 
 function App() {
   return (

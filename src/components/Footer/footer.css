@@ -1,0 +1,19 @@
+.footer {
+  background-color: var(--primary);
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  width: 100vw;
+}
+
+.footer button {
+  background-color: var(--primary);
+  border: none;
+  padding: 0.5rem;
+}
+
+.footer svg {
+  font-size: 35px;
+  transform: translateY(10px);
+}

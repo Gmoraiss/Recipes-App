@@ -34,6 +34,7 @@ export default function SearchBar() {
     <div>
       <div>
         <input
+          className="search-input"
           type="text"
           placeholder="Search Recipe"
           data-testid="search-input"
@@ -42,42 +43,48 @@ export default function SearchBar() {
             setSearchInput(target.value);
           } }
         />
+        <div
+          className="radio-inputs"
+        >
+          <label htmlFor="ingredient">
 
-        <label htmlFor="ingredient">
-          ingredient
-          <input
-            name="filter"
-            type="radio"
-            id="ingredient"
-            data-testid="ingredient-search-radio"
-            value="inputIngredient"
-            onChange={ () => { setFilterRadio('inputIngredient'); } }
-          />
-        </label>
+            <input
+              name="filter"
+              type="radio"
+              id="ingredient"
+              data-testid="ingredient-search-radio"
+              value="inputIngredient"
+              onChange={ () => { setFilterRadio('inputIngredient'); } }
+            />
+            ingredient
+          </label>
 
-        <label htmlFor="name">
-          Name
-          <input
-            name="filter"
-            type="radio"
-            id="name"
-            data-testid="name-search-radio"
-            value="inputName"
-            onChange={ () => { setFilterRadio('inputName'); } }
-          />
-        </label>
+          <label htmlFor="name">
 
-        <label htmlFor="firstLetter">
-          first Letter
-          <input
-            name="filter"
-            type="radio"
-            id="firstLetter"
-            data-testid="first-letter-search-radio"
-            value="inputLetter"
-            onChange={ () => { setFilterRadio('inputLetter'); } }
-          />
-        </label>
+            <input
+              name="filter"
+              type="radio"
+              id="name"
+              data-testid="name-search-radio"
+              value="inputName"
+              onChange={ () => { setFilterRadio('inputName'); } }
+            />
+            Name
+          </label>
+
+          <label htmlFor="firstLetter">
+
+            <input
+              name="filter"
+              type="radio"
+              id="firstLetter"
+              data-testid="first-letter-search-radio"
+              value="inputLetter"
+              onChange={ () => { setFilterRadio('inputLetter'); } }
+            />
+            First Letter
+          </label>
+        </div>
 
         <button
           type="button"

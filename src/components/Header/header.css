@@ -59,16 +59,18 @@
   flex-direction: column;
 }
 
+
 .nav-bar {
   align-items: flex-start;
   background-color: var(--primary);
   display: flex;
   height: 85px;
   justify-content: space-between;
-  width: 100%;
+  width: 105%;
 }
 
 .nav-bar svg {
   font-size: 35px;
   transform: translateY(-5px);
 }
+

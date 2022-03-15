@@ -47,7 +47,7 @@ export default function SearchBar() {
           className="radio-inputs"
         >
           <label htmlFor="ingredient">
-            ingredient
+
             <input
               name="filter"
               type="radio"
@@ -56,10 +56,11 @@ export default function SearchBar() {
               value="inputIngredient"
               onChange={ () => { setFilterRadio('inputIngredient'); } }
             />
+            ingredient
           </label>
 
           <label htmlFor="name">
-            Name
+
             <input
               name="filter"
               type="radio"
@@ -68,10 +69,11 @@ export default function SearchBar() {
               value="inputName"
               onChange={ () => { setFilterRadio('inputName'); } }
             />
+            Name
           </label>
 
           <label htmlFor="firstLetter">
-            first Letter
+
             <input
               name="filter"
               type="radio"
@@ -80,6 +82,7 @@ export default function SearchBar() {
               value="inputLetter"
               onChange={ () => { setFilterRadio('inputLetter'); } }
             />
+            First Letter
           </label>
         </div>
 

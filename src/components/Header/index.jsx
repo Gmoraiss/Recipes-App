@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-max-depth */
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
-import profileIcon from '../../images/profileIcon.svg';
+// import profileIcon from '../../images/profileIcon.svg';
+import {
+  AiOutlineUser, AiOutlineSearch } from 'react-icons/ai';
 import searchIcon from '../../images/searchIcon.svg';
 import SearchBar from '../SearchBar';
 import './header.css';
@@ -13,23 +16,27 @@ function Header({ title, isSearchButton }) {
     <header
       className="header"
     >
-      <button
-        className="header-buttons"
-        type="button"
-        src={ profileIcon }
-        onClick={ () => history.push('/profile') }
-      >
-        <img src={ profileIcon } alt="profileIcon" data-testid="profile-top-btn" />
-      </button>
-      <h2
-        /*  style={ { position: 'absolute', top: '0', right: '37%' } } */
-        data-testid="page-title"
-      >
-        {title}
+      <nav style={ { width: '100%' } }>
+        <ul className="nav-bar">
+          <li>
+            <button
+              className="header-buttons"
+              type="button"
+              onClick={ () => history.push('/profile') }
+            >
+              <AiOutlineUser />
+            </button>
+          </li>
+          <li>
+            <h1
+              data-testid="page-title"
+            >
+              {title}
 
-      </h2>
-
-      {isSearchButton
+            </h1>
+          </li>
+          <li>
+            {isSearchButton
         && (
           <button
             className="header-buttons"
@@ -39,11 +46,11 @@ function Header({ title, isSearchButton }) {
             onClick={ () => setIsSearchBar(!isSearchBar) }
           >
 
-            <img
-              src={ searchIcon }
-              alt="searchIcon"
-            />
+            <AiOutlineSearch />
           </button>)}
+          </li>
+        </ul>
+      </nav>
       {isSearchBar && <SearchBar />}
     </header>
   );

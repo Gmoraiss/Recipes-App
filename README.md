@@ -1,7 +1,6 @@
 # My Awesome Project
 
 # Contexto
-Este projeto trata-se de uma ferramenta de back-office para armazenar e buscar dados de erros que ocorreram com clientes.
 
 Este projeto trata-se de uma aplicativo de receita construído com a Api TheMealDB e React.js. Tem receitas e ingredientes de todo o mundo, por isso é uma ótima maneira de aprender sobre cozinha em diferentes culturas!
 
